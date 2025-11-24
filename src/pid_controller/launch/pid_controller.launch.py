@@ -50,6 +50,14 @@ def generate_launch_description():
             name='pid_controller_node',
             output='screen',
             parameters=[{'waypoints_file': waypoints_path}]
+        ),
+
+        Node(
+            package='pid_controller',
+            executable='trajectory_plotter',
+            name='trajectory_plotter',
+            output='screen',
+            parameters=[{'waypoints_file': waypoints_path}]
         )
 
     ])

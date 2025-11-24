@@ -1,5 +1,6 @@
 from setuptools import setup, find_packages
 import os
+from glob import glob
 
 package_name = 'pid_controller'
 
@@ -20,6 +21,10 @@ setup(
         (os.path.join('share', package_name, 'models'), ['models/my_lrauv/model.sdf']),
 
         (os.path.join('share', package_name, 'bridge'), ['bridge/bridge_config.yaml']),
+
+        # Install config and results folder so plotter can save/locate files
+        (os.path.join('share', package_name, 'config'), ['pid_controller/waypoints.yaml']),
+        (os.path.join('share', package_name, 'results_and_plots'), glob('results_and_plots/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -31,6 +36,7 @@ setup(
     entry_points={
         'console_scripts': [
             'pid_controller_node = pid_controller.pid_controller_node:main',
+            'trajectory_plotter = pid_controller.trajectory_plotter:main',
             
         ],
     },

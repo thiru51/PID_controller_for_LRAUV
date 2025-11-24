@@ -12,17 +12,17 @@ import math
 WAYPOINTS_FILE = "/home/thiru/ros2_ws/src/pid_controller/pid_controller/waypoints.yaml"
 
 # LOS Parameters
-MIN_LOOKAHEAD = 3.0
-MAX_LOOKAHEAD = 6.0  # Slightly increased for smoother transitions between segments
+MIN_LOOKAHEAD = 10
+MAX_LOOKAHEAD = 15.0  # Slightly increased for smoother transitions between segments
 
 # Switching Logic
-ACCEPTANCE_RADIUS = 5.0  # Radius around waypoint to consider it "reached"
+ACCEPTANCE_RADIUS = 16.0  # Radius around waypoint to consider it "reached"
 
 # PID Gains
-KP = 2.0   
-KD = 0.5    
-FORWARD_THRUST = -20.0 
-MAX_FIN_RAD = 0.785  # 45 degrees
+KP = 3.5   
+KD = 1.2    
+FORWARD_THRUST = -50.0 
+MAX_FIN_RAD = 0.52 # 45 degrees
 
 class LOSPathFollower(Node):
     def __init__(self):
