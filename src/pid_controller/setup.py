@@ -30,6 +30,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'pid_controller_node = pid_controller.pid_controller_node:main',
             
         ],
     },

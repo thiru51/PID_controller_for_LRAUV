@@ -1,4 +1,4 @@
-- ros_topic_name: "thruster_cmd"
+- ros_topic_name: "/cmd/thrust"
   gz_topic_name: "/model/my_lrauv/joint/propeller_joint/cmd_thrust"
   ros_type_name: "std_msgs/msg/Float64"
   gz_type_name: "gz.msgs.Double"
@@ -7,7 +7,7 @@
   lazy: true
   direction: ROS_TO_GZ      # Only sending commands from ROS → Gazebo
 
-- ros_topic_name: "vertical_fin_cmd"
+- ros_topic_name: "/cmd/vertical_fins"
   gz_topic_name: "/model/my_lrauv/joint/vertical_fins_joint/0/cmd_pos"
   ros_type_name: "std_msgs/msg/Float64"
   gz_type_name: "gz.msgs.Double"
@@ -15,3 +15,21 @@
   publisher_queue: 5
   lazy: true
   direction: ROS_TO_GZ
+
+- ros_topic_name: "/cmd/horizontal_fins"
+  gz_topic_name: "/model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/odom"
+  gz_topic_name: "/model/my_lrauv/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS      # Only receiving data from Gazebo → ROS

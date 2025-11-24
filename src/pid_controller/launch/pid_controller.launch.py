@@ -17,6 +17,11 @@ def generate_launch_description():
     # Path to bridge YAML
     pkg_share = get_package_share_directory('pid_controller')
     bridge_yaml = os.path.join(pkg_share, 'bridge', 'bridge_config.yaml')
+    # The waypoints file in this workspace is under the python package directory.
+    # Use the explicit workspace path so the node can find it during development.
+    waypoints_path = os.path.join(
+        os.path.expanduser('~'), 'ros2_ws', 'src', 'pid_controller', 'pid_controller', 'waypoints.yaml'
+    )
 
     # ros_gz_bridge
     ros_gz_bridge = Node(
@@ -27,6 +32,8 @@ def generate_launch_description():
         output='screen'
     )
 
+
+
     return LaunchDescription([
         # Launch Gazebo with the world
         ExecuteProcess(
@@ -35,5 +42,14 @@ def generate_launch_description():
         ),
 
         # Start the bridge
-        ros_gz_bridge
+        ros_gz_bridge,
+
+        Node(
+            package='pid_controller',
+            executable='pid_controller_node',
+            name='pid_controller_node',
+            output='screen',
+            parameters=[{'waypoints_file': waypoints_path}]
+        )
+
     ])
