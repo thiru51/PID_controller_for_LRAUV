@@ -9,5 +9,6 @@ gz topic -t /model/my_lrauv/joint/propeller_joint/cmd_thrust -m gz.msgs.Double -
 
 cd ~/ros2_ws
 colcon build --symlink-install
+source /opt/ros/jazzy/setup.bash
 source ~/ros2_ws/install/setup.bash
 ros2 launch pid_controller pid_controller.launch.py

@@ -16,7 +16,7 @@ def generate_launch_description():
 
     # Path to bridge YAML
     pkg_share = get_package_share_directory('pid_controller')
-    bridge_yaml = os.path.join(pkg_share, 'config', 'bridge_config.yaml')
+    bridge_yaml = os.path.join(pkg_share, 'bridge', 'bridge_config.yaml')
 
     # ros_gz_bridge
     ros_gz_bridge = Node(
