@@ -5,3 +5,4 @@ log/
 __pycache__/
 *.pyc
 *.swp
+src/pid_controller/results_and_plots/chumma_file
