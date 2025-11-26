@@ -53,6 +53,12 @@ def generate_launch_description():
         ),
 
         Node(
+            package="PID_PRO_controller",
+            executable="trajectory_paraview",
+            name="trajectory_logger"
+        ),
+
+        Node(
             package='PID_PRO_controller',
             executable='trajectory_plotter',
             name='trajectory_plotter',
