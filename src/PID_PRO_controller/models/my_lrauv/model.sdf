@@ -47,6 +47,85 @@
         </material>
       </visual>
     </link>
+
+
+
+
+
+
+
+    <!-- ===================== -->
+    <!-- Forward Sonar Link -->
+    <!-- ===================== -->
+    <link name="forward_looking_sonar_link">
+      <pose>0.9 0 0 0 0 0</pose>
+      <!-- Very small mass so it doesn't affect dynamics -->
+      <inertial>
+      <mass>0.01</mass>
+      <inertia>
+        <ixx>1e-6</ixx>
+        <iyy>1e-6</iyy>
+        <izz>1e-6</izz>
+      </inertia>
+      </inertial>
+      <!-- No collision: sensor should not affect physics -->
+      
+
+
+
+
+
+      <sensor name="forward_looking_sonar" type="gpu_ray">
+  <pose>0 0 0 0 0 0</pose>
+  <update_rate>10</update_rate>
+
+  <ray>
+    <scan>
+      <!-- Wide horizontal fan -->
+      <horizontal>
+        <samples>400</samples>
+        <min_angle>-1.047</min_angle>   <!-- -60 deg -->
+        <max_angle> 1.047</max_angle>   <!-- +60 deg -->
+      </horizontal>
+
+      <!-- Narrow vertical fan -->
+      <vertical>
+        <samples>20</samples>
+        <min_angle>-0.174</min_angle>   <!-- -10 deg -->
+        <max_angle> 0.174</max_angle>   <!-- +10 deg -->
+      </vertical>
+    </scan>
+
+    <range>
+      <min>0.5</min>
+      <max>80.0</max>
+      <resolution>0.01</resolution>
+    </range>
+  </ray>
+
+  <!-- Required for Gazebo Harmonic -->
+  <plugin
+    filename="gz-sim-sensors-system"
+    name="gz::sim::systems::Sensors">
+  </plugin>
+</sensor>
+
+
+
+    </link>
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Horizontal fins -->
     <link name="horizontal_fins">
       <pose>1.05 0 0 0 0 0</pose>
@@ -188,6 +267,25 @@
       </visual>
     </link>
     <!-- Joints -->
+
+
+
+
+
+
+    <!-- Fixed joint for sonar -->
+    <joint name="forward_looking_sonar_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>forward_looking_sonar_link</child>
+    </joint>
+
+
+
+
+
+
+
+
     <joint name="horizontal_fins_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
