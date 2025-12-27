@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="sand">
+    <!-- Base Gazebo plugins -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <physics name="1ms" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+        filename="gz-sim-user-commands-system"
+        name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+        filename="gz-sim-scene-broadcaster-system"
+        name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+        filename="gz-sim-sensors-system"
+        name="gz::sim::systems::Sensors">
+    </plugin>
+
+    <!-- Uniform Buoyancy (Whole scene is underwater) -->
+    <plugin
+      filename="gz-sim-buoyancy-system"
+      name="gz::sim::systems::Buoyancy">
+      <uniform_fluid_density>1025</uniform_fluid_density>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-particle-emitter-system"
+      name="gz::sim::systems::ParticleEmitter">
+    </plugin>
+
+    <!-- Global light source -->
+    <light type="directional" name="sun_underwater">
+      <pose>0 0 100 0 0 0</pose>
+      <diffuse>0.6 0.75 0.8 1</diffuse> 
+      <specular>0.1 0.1 0.1 1</specular>
+      <direction>0.1 0.1 -1</direction>
+      <cast_shadows>true</cast_shadows>
+    </light>
+
+    <include>
+      <uri>file://models/my_seabed</uri>
+    </include>
+
+    <scene>
+      <grid>false</grid>
+      <ambient>0.2 0.35 0.5 1.0</ambient>
+      <background>0.1 0.2 0.4 1.0</background>
+      <shadows>true</shadows>
+      <fog>
+        <type>linear</type>
+        <color>0.1 0.2 0.4 1.0</color> 
+        <start>10.0</start>
+        <end>70.0</end>
+        <density>0.1</density> 
+      </fog>
+    </scene>
+  </world>
+</sdf>
