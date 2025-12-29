@@ -1,0 +1,206 @@
+cd ~/ros2_ws && colcon build --symlink-install --packages-select pid_controller
+source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 launch pid_controller pid_controller.launch.py
+
+
+
+
+cd ~/ros2_ws && rm -rf colcon build install log && colcon build --symlink-install --packages-select PID_PRO_controller
+source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_controller.launch.py
+
+
+
+
+THE RIGHT COMMAND TO CREATE A ROS2 PACKAGE WITH PYTHON IS:
+ros2 pkg create package_name --build-type ament_python --dependencies rclpy
+
+
+
+
+
+
+thiru_na22b078@dcf-Tx100-1011:~/ros2_ws$ gz topic -l
+
+/clock
+/gazebo/resource_paths
+/gui/camera/pose
+/gui/currently_tracked
+/gui/track
+/model/my_lrauv/joint/propeller_joint/ang_vel
+/model/my_lrauv/odometry
+/model/my_lrauv/odometry_with_covariance
+/model/my_lrauv/pose
+/stats
+/world/buoyant_lrauv/clock
+/world/buoyant_lrauv/dynamic_pose/info
+/world/buoyant_lrauv/pose/info
+/world/buoyant_lrauv/scene/deletion
+/world/buoyant_lrauv/scene/info
+/world/buoyant_lrauv/state
+/world/buoyant_lrauv/stats
+/model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos
+/model/my_lrauv/joint/propeller_joint/cmd_thrust
+/model/my_lrauv/joint/propeller_joint/enable_deadband
+/model/my_lrauv/joint/vertical_fins_joint/0/cmd_pos
+/ocean_current
+/world/buoyant_lrauv/light_config
+/world/buoyant_lrauv/material_color
+
+
+
+
+gz topic -t /model/my_lrauv/joint/vertical_fins_joint/0/cmd_pos -m gz.msgs.Double -p 'data: -0.17'
+
+
+gz topic -t /model/my_lrauv/joint/propeller_joint/cmd_thrust -m gz.msgs.Double -p 'data: -15'
+
+gz topic -t /model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos -m gz.msgs.Double -p 'data: 0.3'
+
+gz topic -t /model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos -m gz.msgs.Double -p 'data: -0.17'
+
+
+
+
+
+
+The whole underwater simulation stack :
+
+┌──────────────────────────────────────────┐
+│  Autonomy (Navigation, SLAM, Avoidance)  │
+├──────────────────────────────────────────┤
+│  Perception (Sonar pings, point clouds)  │
+├──────────────────────────────────────────┤
+│  Sensor simulation (Imaging / MBES)      │
+├──────────────────────────────────────────┤
+│  Underwater physics + seabed + obstacles │
+├──────────────────────────────────────────┤
+│  LRAUV hydrodynamics & control ✅        │
+└──────────────────────────────────────────┘
+
+
+
+
+
+GIT basics:
+
+
+What Git ACTUALLY is (core idea)?
+
+Git = a versioned database of snapshots
+Git does not track “files changing”
+Git tracks snapshots of your project at specific times
+Each snapshot = commit
+
+
+
+
+1. Git workflow stages: 
+		"Working Directory---> Staging area ---> commit"
+
+Working Directory
+The file on disk (what you edit in VS Code)
+
+Staging Area
+Files you intend to save in the next snapshot
+
+Commit (History)
+A frozen snapshot saved permanently
+
+
+
+
+2. git status (MOST IMPORTANT command)
+	git status
+
+This tells you:
+
+Which branch you are on
+What files are changed
+What is staged
+What is untracked
+Always run this when confused.
+
+
+
+3. git add .      means “Stage ALL modified files”
+
+It moves the file:
+Working directory → Staging area
+
+
+4. git commit -m "message"    — THE SNAPSHOT
+
+Takes everything in the staging area
+Saves a snapshot
+Adds it to the history
+
+After commit:
+Working directory → clean
+History → one more commit
+
+
+5.Remote branches vs local branches
+
+| Local (Laptop) | Remote (GitHub)     |
+| -------------- | ------------------- |
+| `main`         | `origin/main`       |
+| `experiment`   | `origin/experiment` |
+
+
+6.git fetch vs git pull
+
+git fetch  --> “Download info from GitHub, but don’t touch my files”  It updates origin/main , but not main. Safe, read only.
+git pull   --> “Download + merge into my current branch”  So git pull changes your code.
+	Internally git pull does:
+	git fetch
+	git merge origin/main
+
+
+
+
+
+
+CHEAT SHEET:
+
+1.Start work:
+git switch main
+git pull
+
+2.New IDEA (create a new branch) or (switch to a existing branch):
+| Situation             | Command                 |
+| --------------------- | ----------------------- |
+| Branch does NOT exist | `git switch -c my-idea` |
+| Branch already exists | `git switch my-idea`    |
+
+git switch -c my-idea
+git switch my-idea
+
+
+3.Save progress by pushing the locally created branch into the github 
+git add .
+git commit -m "message"
+git push -u origin my-idea
+
+4.Merge to main: (later if you want to merge the branch to main if you think there wont be conflicts)
+git switch main
+git pull
+git merge my-idea
+git push
+
+
+
+IMP NOTE:
+👉 Creating a branch locally does NOT create it on GitHub
+
+After:
+"git switch -c my-idea"
+
+This branch exists:
+✔ locally
+❌ NOT on GitHub
+
+To create it on GitHub, you must push it:
+"git push -u origin my-idea"
+
+the above command creates the branch on GitHub and links it to your local branch.
+in future , you can just do git push to push changes to that branch on GitHub.
+no need to do "git push -u origin my-idea again."
