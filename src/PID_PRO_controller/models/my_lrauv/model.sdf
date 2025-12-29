@@ -75,15 +75,18 @@
 
 
 
-      <sensor name="forward_looking_sonar" type="gpu_ray">
+  <sensor name="forward_looking_sonar" type="gpu_ray">
   <pose>0 0 0 0 0 0</pose>
-  <update_rate>10</update_rate>
-
+  <always_on>true</always_on>
+  <update_rate>2</update_rate>
+  <visualize>true</visualize>  <visualize>true</visualize>
+  
   <ray>
     <scan>
       <!-- Wide horizontal fan -->
       <horizontal>
-        <samples>400</samples>
+        <samples>512</samples>
+         <resolution>1</resolution>
         <min_angle>-1.047</min_angle>   <!-- -60 deg -->
         <max_angle> 1.047</max_angle>   <!-- +60 deg -->
       </horizontal>
@@ -91,6 +94,7 @@
       <!-- Narrow vertical fan -->
       <vertical>
         <samples>20</samples>
+         <resolution>1</resolution>
         <min_angle>-0.174</min_angle>   <!-- -10 deg -->
         <max_angle> 0.174</max_angle>   <!-- +10 deg -->
       </vertical>
