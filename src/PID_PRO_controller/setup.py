@@ -38,7 +38,7 @@ setup(
             'lrauv_3d_los_controller = PID_PRO_controller.lrauv_3d_los_controller:main',
             'trajectory_plotter = PID_PRO_controller.trajectory_plotter:main',
             'trajectory_paraview = PID_PRO_controller.trajectory_paraview:main',
-            
+            'sonar_image_node = PID_PRO_controller.sonar_image_node:main',
         ],
     },
 )

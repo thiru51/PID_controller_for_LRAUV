@@ -64,6 +64,12 @@ def generate_launch_description():
             name='trajectory_plotter',
             output='screen',
             parameters=[{'waypoints_file': waypoints_path}]
+        ),
+        Node(
+            package='PID_PRO_controller',
+            executable='sonar_image_node',
+            name='sonar_image_node',
+            output='screen'
         )
 
     ])
