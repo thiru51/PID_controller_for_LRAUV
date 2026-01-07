@@ -42,3 +42,14 @@
   publisher_queue: 5
   lazy: true
   direction: GZ_TO_ROS
+
+
+- ros_topic_name: "/dynamic_pose"
+  gz_topic_name: "/world/buoyant_lrauv/dynamic_pose/info"
+  ros_type_name: "geometry_msgs/msg/Pose"
+  gz_type_name: "gz.msgs.Pose"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS
+   

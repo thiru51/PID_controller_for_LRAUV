@@ -42,7 +42,7 @@
 
 
     <!-- experimenting sand_world-->
-    <include>
+    <!-- <include>
       <uri>my_seabed</uri>
     </include>
 
@@ -58,8 +58,8 @@
         <end>70.0</end>
         <density>0.1</density> 
       </fog>
-    </scene>
-    <!-- experimenting sand_world-->
+    </scene> -->
+    <!-- experimenting sand_world -->
 
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
@@ -223,9 +223,12 @@
         <uri>my_lrauv</uri>
 
         <plugin
-          filename="gz-sim-odometry-publisher-system"
-          name="gz::sim::systems::OdometryPublisher">
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>odom</odom_frame>
+        <robot_base_frame>base_link</robot_base_frame>
         </plugin>
+
 
         <!-- Joint controllers -->
         <plugin
