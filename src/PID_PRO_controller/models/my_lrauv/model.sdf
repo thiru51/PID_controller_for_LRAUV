@@ -4,7 +4,7 @@
     <!-- Body -->
     <link name="base_link">
       <inertial>
-      <pose>0 0 -0.02 0 0 0</pose>
+      <!-- <pose>0 0 -0.02 0 0 0</pose> -->
         <mass>147.8671</mass>
         <inertia>
           <ixx>3.000000</ixx>
@@ -17,7 +17,7 @@
       </inertial>
       <!-- Uncomment this block to enable neutral buoyancy. -->
       <collision name="main_body_buoyancy">
-      <pose>0 0 0.010 0 0 0</pose>
+      <!-- <pose>0 0 0.010 0 0 0</pose> -->
         <geometry>
           <box>
             <size>2 0.3 0.2464451666666667</size>
@@ -50,25 +50,21 @@
     </link>
 
 
-
-
-
-
-
     <!-- ===================== -->
     <!-- Forward Sonar Link -->
     <!-- ===================== -->
     <link name="forward_looking_sonar_link">
       <pose>0.9 0 0 0 0 0</pose>
       <!-- Very small mass so it doesn't affect dynamics -->
-      <inertial>
+      <!-- <inertial>
       <mass>0.01</mass>
+      
       <inertia>
         <ixx>1e-6</ixx>
         <iyy>1e-6</iyy>
         <izz>1e-6</izz>
       </inertia>
-      </inertial>
+      </inertial> -->
       <!-- No collision: sensor should not affect physics -->
       
 
@@ -118,18 +114,6 @@
 
 
     </link>
-
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- Horizontal fins -->
     <link name="horizontal_fins">
@@ -272,25 +256,6 @@
       </visual>
     </link>
     <!-- Joints -->
-
-
-
-
-
-
-    <!-- Fixed joint for sonar -->
-    <joint name="forward_looking_sonar_joint" type="fixed">
-      <parent>base_link</parent>
-      <child>forward_looking_sonar_link</child>
-    </joint>
-
-
-
-
-
-
-
-
     <joint name="horizontal_fins_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -298,8 +263,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-1.2</lower>
-          <upper>1.2</upper>
+          <lower>-0.261799</lower>
+          <upper>0.261799</upper>
           <effort>-1</effort>
           <velocity>-1</velocity>
         </limit>

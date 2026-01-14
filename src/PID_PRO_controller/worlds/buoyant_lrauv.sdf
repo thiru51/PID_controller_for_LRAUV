@@ -28,11 +28,53 @@
       name="gz::sim::systems::Contact">
     </plugin>
 
-    <plugin
+    <!-- <plugin
       filename="gz-sim-buoyancy-system"
       name="gz::sim::systems::Buoyancy">
       <uniform_fluid_density>1000</uniform_fluid_density>
-    </plugin>
+    </plugin> -->
+
+
+
+
+
+    <plugin name="vrx_buoyancy"
+        filename="libPolyhedraBuoyancyDrag.so">
+
+  <!-- Seawater -->
+  <fluid_density>1025</fluid_density>
+
+  <!-- Mean sea level -->
+  <fluid_level>0.0</fluid_level>
+
+  <!-- Small drag (AUV, not USV) -->
+  <linear_drag>1.0</linear_drag>
+  <angular_drag>0.2</angular_drag>
+
+  <!-- Buoyant volume -->
+  <buoyancy name="main_hull">
+    <link_name>base_link</link_name>
+    <pose>0 0 0 0 0 0</pose>
+
+    <geometry>
+      <cylinder>
+        <radius>0.22</radius>
+        <length>3.0</length>
+      </cylinder>
+    </geometry>
+  </buoyancy>
+
+  <!-- Free surface coupling -->
+  <wavefield>
+    <topic>/vrx/wavefield/parameters</topic>
+  </wavefield>
+
+</plugin>
+
+
+
+
+
 
     <plugin
       filename="gz-sim-particle-emitter-system"

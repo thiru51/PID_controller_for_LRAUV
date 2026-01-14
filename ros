@@ -53,7 +53,7 @@ gz topic -t /model/my_lrauv/joint/vertical_fins_joint/0/cmd_pos -m gz.msgs.Doubl
 
 gz topic -t /model/my_lrauv/joint/propeller_joint/cmd_thrust -m gz.msgs.Double -p 'data: -15'
 
-gz topic -t /model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos -m gz.msgs.Double -p 'data: 0.3'
+
 
 gz topic -t /model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos -m gz.msgs.Double -p 'data: -0.17'
 
