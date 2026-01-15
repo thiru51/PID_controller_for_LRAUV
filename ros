@@ -163,6 +163,110 @@ git pull   --> “Download + merge into my current branch”  So git pull change
 
 
 
+DOCKER BASICS:
+
+
+INSTALLATION ND SETTING IN A NEW SYSTEM:
+
+1.Set up Docker's apt repository.
+# Add Docker's official GPG key:
+ sudo apt update
+ sudo apt install ca-certificates curl
+ sudo install -m 0755 -d /etc/apt/keyrings
+ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+ sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+
+
+# Add the repository to Apt sources:
+ sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+ Types: deb
+ URIs: https://download.docker.com/linux/ubuntu
+ Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+ Components: stable
+ Signed-By: /etc/apt/keyrings/docker.asc
+ EOF
+
+
+
+ sudo apt update
+
+
+2.Install the Docker packages.
+To install the latest version, run:
+ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+
+3.The Docker service starts automatically after installation. To verify that Docker is running, use:
+
+
+ sudo systemctl status docker
+Some systems may have this behavior disabled and will require a manual start:
+ sudo systemctl start docker
+ 
+ 
+ 
+4.Verify that the installation is successful by running the hello-world image:
+ sudo docker run hello-world
+
+5.IMPORTANT PART: (you wont find in the documentations)
+
+To create the docker group and add your user:
+
+Create the docker group.
+ sudo groupadd docker
+
+
+Add your user to the docker group.
+ sudo usermod -aG docker $USER
+
+
+Log out and log back in so that your group membership is re-evaluated.
+If you're running Linux in a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.
+You can also run the following command to activate the changes to groups:
+ newgrp docker
+
+
+Verify that you can run docker commands without sudo.
+ docker run hello-world
+then run:
+ docker image ls
+you should see:
+thiru@dcf-Tx100-1015:~$ docker image ls
+                                                            i Info →   U  In Use
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+hello-world:latest   05813aedc15f       25.9kB         9.52kB    U   
+
+
+
+
+
+LEARNINGS:
+
+1. Starting and closing a docker container is different from running a docker container
+   whereas, Running a docker container is flashing the docker image once again, but starting nd closing is like editing nd saving the already once ran container
+ 
+2. base command nd child command like ros2 run or ros2 lauch
+
+3. docker image pull ros:humble 
+   here , the format is <name> : <tag>
+
+4. "docker image ls" is same as that of "docker iamges"
+   "docker image pull " is same as that of "docker pull"
+
+5. to remove the docker image :
+	"docker image rm hello-world"
+	"docker image rm -f hello-world"  - for force
+
+6.docker run ros:humble
+
+
+
+
+
+
+
 
 CHEAT SHEET:
 
