@@ -38,7 +38,7 @@
 
 
 
-    <plugin name="vrx_buoyancy"
+    <plugin name="vrx::PolyhedraBuoyancyDrag"
         filename="libPolyhedraBuoyancyDrag.so">
 
   <!-- Seawater -->

@@ -9,6 +9,11 @@ source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 
 
 
 
+cd ~/ros2_ws
+rm -rf build/ install/ log/
+colcon build --packages-select vrx_gz PID_PRO_controller --symlink-install
+source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_controller.launch.py
+
 
 THE RIGHT COMMAND TO CREATE A ROS2 PACKAGE WITH PYTHON IS:
 ros2 pkg create package_name --build-type ament_python --dependencies rclpy
