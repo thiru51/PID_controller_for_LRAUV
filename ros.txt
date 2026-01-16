@@ -221,12 +221,17 @@ Create the docker group.
 Add your user to the docker group.
  sudo usermod -aG docker $USER
 
-
 Log out and log back in so that your group membership is re-evaluated.
 If you're running Linux in a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.
 You can also run the following command to activate the changes to groups:
  newgrp docker
 
+
+
+NOTE:
+The above three commands are important when for each time 
+you access a terminal nd try using docker.
+  
 
 Verify that you can run docker commands without sudo.
  docker run hello-world
@@ -243,6 +248,10 @@ hello-world:latest   05813aedc15f       25.9kB         9.52kB    U
 
 
 LEARNINGS:
+To start your docker session in a terminal, you should:
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker
 
 1. Starting and closing a docker container is different from running a docker container
    whereas, Running a docker container is flashing the docker image once again, but starting nd closing is like editing nd saving the already once ran container
@@ -259,15 +268,110 @@ LEARNINGS:
 	"docker image rm hello-world"
 	"docker image rm -f hello-world"  - for force
 
-6.docker run ros:humble
+6."docker run ros:humble" and "docker container run ros:humble" are the same
+but the above commands would not open a terminal to interact...
+
+7. "docker run -it ros:humble"
+the above command opens a terminal to interact with like below:
+
+thiru_na22b078@dcf-Tx100-1011:~$ docker run -it ros:humble
+root@fb9257b386f1:/# ls
+bin   etc   lib32   log    opt   ros_entrypoint.sh  srv  usr
+boot  home  lib64   media  proc  run                sys  var
+dev   lib   libx32  mnt    root  sbin               tmp
+root@fb9257b386f1:/# exit
+exit
+
+8. Lets say that a container is running in a terminal and then you open a new one... then source the terminal with docker commands nd then execute the following commands:
+	"docker container ls" or  "docker ps"     - both are same
+
+thiru_na22b078@dcf-Tx100-1011:~$ docker container ls
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS     NAMES
+9b318e4f6726   ros:humble   "/ros_entrypoint.sh …"   2 minutes ago   Up 2 minutes             eloquent_proskuriakova
+
+  	"docker container stop eloquent_proskuriakova"   stops the container that was opened in the previous terminal
+  	
+NOTE: 
+	"docker ps -a"    - gives you the history of containers
+	
+thiru_na22b078@dcf-Tx100-1011:~$ docker ps -a
+CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                        PORTS     NAMES
+9b318e4f6726   ros:humble                                    "/ros_entrypoint.sh …"   10 minutes ago   Exited (137) 7 minutes ago              eloquent_proskuriakova
+fb9257b386f1   ros:humble                                    "/ros_entrypoint.sh …"   11 minutes ago   Exited (0) 11 minutes ago               charming_edison
+7168d46c3cd1   ros:humble                                    "/ros_entrypoint.sh …"   12 minutes ago   Exited (0) 12 minutes ago               focused_feistel
+a53626ae7743   ros:humble                                    "/ros_entrypoint.sh …"   12 minutes ago   Exited (130) 12 minutes ago             priceless_lichterman
+2caf8a15da50   hello-world                                   "/hello"                 46 minutes ago   Exited (0) 46 minutes ago               quirky_thompson
+46e3f0244c0f   hello-world                                   "/hello"                 46 minutes ago   Exited (0) 46 minutes ago               adoring_noyce
+3c34f3fc322c   gaussian-cuda11-img                           "/opt/nvidia/nvidia_…"   2 months ago     Exited (137) 2 months ago               amazing_mcnulty
+d3be0151e0b7   gaussian-cuda11-img                           "/opt/nvidia/nvidia_…"   2 months ago     Exited (137) 2 months ago               gaussian-cuda11-gui
+1b800f701cd3   nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04   "/opt/nvidia/nvidia_…"   2 months ago     Exited (0) 2 months ago                 gaussian-cuda11
 
 
 
 
+9. 	"docker container start -i eloquent_proskuriakova"  
 
 
+- this would start (not run) my previously ran container easily again.
+NOTE : running is different from starting nd stoping.
 
 
+10.	"docker container rm eloquent_proskuriakova" 
+
+- this would remove the container
+
+
+11.	"docker container prune"
+
+-this would remove all the stopped containers
+
+
+12.	"docker exec -it eloquent_proskuriakova /bin/bash"
+
+- this would create another interactive terminal of the same container in another terminal
+
+	"docker exec -it eloquent_proskuriakova ls"
+	
+- this would show the available files nd folders in the particular container , from another terminal.
+
+
+13.TO BUILD AN IMAGE:
+
+	1. First create the repository that you want. create the dockerfile with necessary details in it and execute the following command. 
+	2. FROM ros:humble
+	   RUN apt-get update && apt-get install -y \ nano && rm -rf /var/lib/apt/lists/*
+	   COPY our_directory/ /site_directory
+	   	-these are the basic instructions in a dockerfile.
+	
+  	3. then you go nd execute this command to build the image:
+	"docker image build -t <image_name> <path_to_the_directory>"
+
+ 	4. when you are in the directory itself:
+	"docker image build -t <image_name> ."
+	
+	5. "docker ps"                    - for checking 
+	   "docker run -it <image_name>"  - for running the image
+	   
+	
+VOLUMES AND BIND MAPS:
+
+SHARING FILES WITH CONTAINER:
+	" docker run -it -v $PWD/new_directory:/site_new_directory my_first_image"
+	
+	
+	the above command adds the new_directory as site_new_directory in the my_first_image nd runs that image...
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 CHEAT SHEET:
 
 1.Start work:
