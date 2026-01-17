@@ -9,11 +9,8 @@ source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 
 
 
 
-cd ~/ros2_ws
-rm -rf build/ install/ log/
-colcon build --packages-select vrx_gz PID_PRO_controller --symlink-install
+cd ~/ros2_ws && rm -rf build/ install/ log/ && colcon build --packages-select vrx_gz PID_PRO_controller --symlink-install
 source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_controller.launch.py
-
 
 THE RIGHT COMMAND TO CREATE A ROS2 PACKAGE WITH PYTHON IS:
 ros2 pkg create package_name --build-type ament_python --dependencies rclpy
@@ -619,3 +616,102 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<plugin name="vrx::PolyhedraBuoyancyDrag"
+        filename="libPolyhedraBuoyancyDrag.so">
+
+  <!-- Seawater -->
+  <fluid_density>1025</fluid_density>
+
+  <!-- Mean sea level -->
+  <fluid_level>0.0</fluid_level>
+
+  <!-- Small drag (AUV, not USV) -->
+  <linear_drag>1.0</linear_drag>
+  <angular_drag>0.2</angular_drag>
+
+  <!-- Buoyant volume -->
+  <buoyancy name="main_hull">
+    <link_name>base_link</link_name>
+    <pose>0 0 0 0 0 0</pose>
+
+    <geometry>
+      <cylinder>
+        <radius>0.22</radius>
+        <length>3.0</length>
+      </cylinder>
+    </geometry>
+  </buoyancy>
+
+  <!-- Free surface coupling -->
+  <wavefield>
+    <topic>/vrx/wavefield/parameters</topic>
+  </wavefield>
+
+</plugin>
+
+
+
+
+
+
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+source ~/vrx_ws/install/setup.bash
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/pid_controller/models
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/PID_PRO_controller/models
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$HOME/ros2_ws/src/PID_PRO_controller/worlds
+
+
+
+
+
+

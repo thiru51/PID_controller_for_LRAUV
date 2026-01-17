@@ -50,13 +50,79 @@
     </link>
 
 
-    <!-- ===================== -->
+    <plugin
+    name="vrx::PolyhedraBuoyancyDrag"
+    filename="libPolyhedraBuoyancyDrag.so">
+
+    <fluid_density>1000</fluid_density>
+    <fluid_level>0.0</fluid_level>
+    <linear_drag>25.0</linear_drag>
+    <angular_drag>2.0</angular_drag>
+
+    <!-- <buoyancy name="main_body_buoyancy">
+      <link_name>base_link</link_name>
+      <pose>0 0 0 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.18</radius>
+          <length>3.8</length>
+        </cylinder>
+      </geometry>
+    </buoyancy> -->
+
+
+     <buoyancy name="main_body_buoyancy">
+       <link_name>base_link</link_name>
+      <!-- <pose>0 0 0.010 0 0 0</pose> -->
+        <geometry>
+          <box>
+            <size>2 0.3 0.2464451666666667</size>
+          </box>
+        </geometry>
+      </buoyancy>
+
+      <buoyancy name="horizontal_fins_buoyancy">
+        <link_name>horizontal_fins</link_name>
+                <pose>1.05 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.02</size>
+          </box>
+        </geometry>
+      </buoyancy>
+
+      <buoyancy name="vertical_fins_buoyancy">
+        <link_name>vertical_fins</link_name>
+                <pose>1.05 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.02</size>
+          </box>
+        </geometry>
+      </buoyancy>
+
+
+      <buoyancy name ="propeller_buoyancy">
+        <link_name>propeller</link_name>
+                <pose>1.43162 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.1 0.03</size>
+          </box>
+        </geometry>
+      </buoyancy>
+
+  </plugin>
+
+
+
+    =====================
     <!-- Forward Sonar Link -->
     <!-- ===================== -->
     <link name="forward_looking_sonar_link">
       <pose>0.9 0 0 0 0 0</pose>
       <!-- Very small mass so it doesn't affect dynamics -->
-      <!-- <inertial>
+      <inertial>
       <mass>0.01</mass>
       
       <inertia>
@@ -64,7 +130,7 @@
         <iyy>1e-6</iyy>
         <izz>1e-6</izz>
       </inertia>
-      </inertial> -->
+      </inertial>
       <!-- No collision: sensor should not affect physics -->
       
 
@@ -111,9 +177,12 @@
   </plugin>
 </sensor>
 
+ </link>
 
 
-    </link>
+
+
+
 
     <!-- Horizontal fins -->
     <link name="horizontal_fins">
