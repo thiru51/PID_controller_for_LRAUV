@@ -56,8 +56,8 @@
 
     <fluid_density>1000</fluid_density>
     <fluid_level>0.0</fluid_level>
-    <linear_drag>25.0</linear_drag>
-    <angular_drag>2.0</angular_drag>
+    <linear_drag>0.001</linear_drag>
+    <angular_drag>0.0003</angular_drag>
 
     <!-- <buoyancy name="main_body_buoyancy">
       <link_name>base_link</link_name>

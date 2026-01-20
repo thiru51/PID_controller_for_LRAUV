@@ -15,8 +15,10 @@ setup(
         # ('share/' + package_name, ['PID_PRO_controller/waypoints.yml']),
 
         (os.path.join('share', package_name, 'launch'), ['launch/PID_PRO_controller.launch.py']),
+        (os.path.join('share', package_name, 'launch'), ['launch/PID_PRO_sydney_regatta.launch.py']),
 
         (os.path.join('share', package_name, 'worlds'), ['worlds/buoyant_lrauv.sdf']),
+        (os.path.join('share', package_name, 'worlds'), ['worlds/sydney_regatta.sdf']),
 
         (os.path.join('share', package_name, 'models'), ['models/my_lrauv/model.sdf']),
 
