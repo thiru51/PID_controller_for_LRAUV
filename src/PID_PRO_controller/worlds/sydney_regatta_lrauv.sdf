@@ -741,7 +741,7 @@
 
 
 
-         <!-- lrauv hull
+         lrauv hull
       <plugin
         filename="libSurface.so"
         name="vrx::Surface">
@@ -756,7 +756,7 @@
         <wavefield>
           <topic>/vrx/wavefield/parameters</topic>
         </wavefield>
-      </plugin> -->
+      </plugin>
 
       
 

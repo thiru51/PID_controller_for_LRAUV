@@ -4,7 +4,6 @@
     <!-- Body -->
     <link name="base_link">
       <inertial>
-      <!-- <pose>0 0 -0.02 0 0 0</pose> -->
         <mass>147.8671</mass>
         <inertia>
           <ixx>3.000000</ixx>
@@ -15,26 +14,24 @@
           <izz>41.980233</izz>
         </inertia>
       </inertial>
-      <!-- Uncomment this block to enable neutral buoyancy. -->
+      
       <collision name="main_body_buoyancy">
-      <!-- <pose>0 0 0.010 0 0 0</pose> -->
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
-          <!-- <box>
-            <size>2 0.3 0.2464451666666667</size>
-          </box> -->
-           <cylinder>
-            <radius>0.18</radius>
-            <length>2</length>
-            </cylinder>
+          <cylinder>
+            <radius>0.113</radius>
+            <length>3.8</length>
+          </cylinder>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <geometry>
           <mesh>
             <uri>meshes/tethys.dae</uri>
             <submesh>
               <name>Body</name>
-                <center>false</center>
+              <center>false</center>
             </submesh>
           </mesh>
         </geometry>
@@ -53,150 +50,10 @@
       </visual>
     </link>
 
-
-
-
-
-<plugin
-        filename="libSurface.so"
-        name="vrx::Surface">
-        <link_name>base_link</link_name>
-        <hull_length>2</hull_length>
-        <hull_radius>0.18</hull_radius>
-        <fluid_level>0</fluid_level>
-        <points>
-          <point>0.6 -1.03 0</point>
-          <point>-1.4 -1.03 0</point>
-        </points>
-        <wavefield>
-          <topic>/vrx/wavefield/parameters</topic>
-        </wavefield>
-      </plugin>
-
-    <plugin
-    name="vrx::PolyhedraBuoyancyDrag"
-    filename="libPolyhedraBuoyancyDrag.so">
-
-    <fluid_density>1000</fluid_density>
-    <fluid_level>0.0</fluid_level>
-    <linear_drag>0.001</linear_drag>
-    <angular_drag>0.0003</angular_drag>
-
-    <!-- <buoyancy name="main_body_buoyancy">
-      <link_name>base_link</link_name>
-      <pose>0 0 0 0 0 0</pose>
-      <geometry>
-        <cylinder>
-          <radius>0.18</radius>
-          <length>3.8</length>
-        </cylinder>
-      </geometry>
-    </buoyancy> -->
-
-
-     <buoyancy name="main_body_buoyancy">
-       <link_name>base_link</link_name>
-      <!-- <pose>0 0 0.010 0 0 0</pose> -->
-        <geometry>
-          <box>
-            <size>2 0.3 0.2464451666666667</size>
-          </box>
-        </geometry>
-      </buoyancy>
-
-      <buoyancy name="horizontal_fins_buoyancy">
-        <link_name>horizontal_fins</link_name>
-                <pose>1.05 0 0 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.1 0.1 0.02</size>
-          </box>
-        </geometry>
-      </buoyancy>
-
-      <buoyancy name="vertical_fins_buoyancy">
-        <link_name>vertical_fins</link_name>
-                <pose>1.05 0 0 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.1 0.1 0.02</size>
-          </box>
-        </geometry>
-      </buoyancy>
-
-
-      <buoyancy name ="propeller_buoyancy">
-        <link_name>propeller</link_name>
-                <pose>1.43162 0 0 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.03 0.1 0.03</size>
-          </box>
-        </geometry>
-      </buoyancy>
-
-  </plugin> 
-
-
-
-    =====================
-    <!-- Forward Sonar Link -->
-    <!-- ===================== -->
-    <!-- Forward looking sonar link - commented out
-    <link name="forward_looking_sonar_link">
-      <pose>0.9 0 0 0 0 0</pose>
-      <inertial>
-      <mass>0.01</mass>
-      <inertia>
-      <ixx>1e-6</ixx>
-      <iyy>1e-6</iyy>
-      <izz>1e-6</izz>
-      </inertia>
-      </inertial>
-      <sensor name="forward_looking_sonar" type="gpu_ray">
-    <pose>0 0 0 0 0 0</pose>
-    <always_on>true</always_on>
-    <update_rate>15</update_rate>
-    <visualize>true</visualize>
-    <ray>
-    <scan>
-      <horizontal>
-      <samples>512</samples>
-       <resolution>1</resolution>
-      <min_angle>-1.047</min_angle>
-      <max_angle> 1.047</max_angle>
-      </horizontal>
-      <vertical>
-      <samples>20</samples>
-       <resolution>1</resolution>
-      <min_angle>-0.4</min_angle>
-      <max_angle> 0.4</max_angle>
-      </vertical>
-    </scan>
-    <range>
-      <min>0.5</min>
-      <max>80.0</max>
-      <resolution>0.01</resolution>
-    </range>
-    </ray>
-    <plugin
-    filename="gz-sim-sensors-system"
-    name="gz::sim::systems::Sensors">
-    </plugin>
-  </sensor>
-   </link>
-    -->
-
-
-
-
-
-
     <!-- Horizontal fins -->
     <link name="horizontal_fins">
       <pose>1.05 0 0 0 0 0</pose>
       <inertial>
-        <pose>0 0 0 1.57 0 0.5</pose>
         <mass>0.2</mass>
         <inertia>
           <ixx>0.0007924568755</ixx>
@@ -205,8 +62,9 @@
           <iyy>0.0010546736475</iyy>
           <iyz>-0.0000000006729</iyz>
           <izz>0.0002633558262</izz>
-         </inertia>
+        </inertia>
       </inertial>
+      
       <collision name="collision">
         <geometry>
           <box>
@@ -214,6 +72,7 @@
           </box>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <pose>-1.05 0 0 0 0 0</pose>
         <geometry>
@@ -237,8 +96,9 @@
             </metal>
           </pbr>
         </material>
-        </visual>
+      </visual>
     </link>
+
     <!-- Vertical fins -->
     <link name="vertical_fins">
       <pose>1.05 0 0 0 0 0</pose>
@@ -253,6 +113,7 @@
           <izz>0.0002633558262</izz>
         </inertia>
       </inertial>
+      
       <collision name="collision">
         <geometry>
           <box>
@@ -260,6 +121,7 @@
           </box>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <pose>-1.05 0 0 0 0 0</pose>
         <geometry>
@@ -285,6 +147,7 @@
         </material>
       </visual>
     </link>
+
     <!-- Propeller -->
     <link name="propeller">
       <pose>1.43162 0 0 0 0 0</pose>
@@ -300,6 +163,7 @@
           <izz>0.000033571862</izz>
         </inertia>
       </inertial>
+      
       <collision name="collision">
         <geometry>
           <box>
@@ -307,6 +171,7 @@
           </box>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <pose>-1.43162 0 0 0 0 0</pose>
         <geometry>
@@ -332,6 +197,7 @@
         </material>
       </visual>
     </link>
+
     <!-- Joints -->
     <joint name="horizontal_fins_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
@@ -342,11 +208,15 @@
         <limit>
           <lower>-0.261799</lower>
           <upper>0.261799</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
+          <effort>100</effort>
+          <velocity>1.0</velocity>
         </limit>
+        <dynamics>
+          <damping>1.0</damping>
+        </dynamics>
       </axis>
     </joint>
+
     <joint name="vertical_fins_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -356,11 +226,15 @@
         <limit>
           <lower>-0.261799</lower>
           <upper>0.261799</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
+          <effort>100</effort>
+          <velocity>1.0</velocity>
         </limit>
+        <dynamics>
+          <damping>1.0</damping>
+        </dynamics>
       </axis>
     </joint>
+
     <joint name="propeller_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -375,6 +249,55 @@
         </limit>
       </axis>
     </joint>
+
+    <!-- Buoyancy Plugin -->
+    <plugin name="vrx::PolyhedraBuoyancyDrag" filename="libPolyhedraBuoyancyDrag.so">
+      <fluid_density>1000</fluid_density>
+      <fluid_level>0.0</fluid_level>
+      <linear_drag>0</linear_drag>
+      <angular_drag>0</angular_drag>
+
+      <buoyancy name="main_body_buoyancy">
+        <link_name>base_link</link_name>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.113</radius>
+            <length>3.8</length>
+          </cylinder>
+        </geometry>
+      </buoyancy>
+
+      <buoyancy name="horizontal_fins_buoyancy">
+        <link_name>horizontal_fins</link_name>
+        <pose>1.05 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.02</size>
+          </box>
+        </geometry>
+      </buoyancy>
+
+      <buoyancy name="vertical_fins_buoyancy">
+        <link_name>vertical_fins</link_name>
+        <pose>1.05 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.02</size>
+          </box>
+        </geometry>
+      </buoyancy>
+
+      <buoyancy name="propeller_buoyancy">
+        <link_name>propeller</link_name>
+        <pose>1.43162 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.1 0.03</size>
+          </box>
+        </geometry>
+      </buoyancy>
+    </plugin>
 
   </model>
 </sdf>

@@ -19,7 +19,7 @@ cd ~/ros2_ws && rm -rf build install log && source /opt/ros/jazzy/setup.bash && 
 source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_controller.launch.py
 
 
-
+rm -rf build/PID_PRO_controller install/PID_PRO_controller 
 
 
 THE RIGHT COMMAND TO CREATE A ROS2 PACKAGE WITH PYTHON IS:
