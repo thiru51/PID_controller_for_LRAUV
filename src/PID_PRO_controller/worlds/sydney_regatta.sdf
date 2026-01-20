@@ -352,11 +352,11 @@
       <uri>coast_waves</uri>
     </include>
 
-    <include>
+    <!-- <include>
       <name>mb_marker_buoy_red</name>
       <pose>-528 191 0 0 0 0</pose>
       <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/mb_marker_buoy_red</uri>
-    <inlcude>
+    </inlcude> -->
       <!--
         <plugin name="vrx::PolyhedraBuoyancyDrag"
             filename="libPolyhedraBuoyancyDrag.so">
@@ -618,9 +618,29 @@
     </plugin>
 
 
+    <!-- experimenting sand_world-->
+    <include>
+      <uri>my_seabed</uri>
+    </include>
+
+    <scene>
+      <grid>false</grid>
+      <ambient>0.2 0.35 0.5 1.0</ambient>
+      <background>0.1 0.2 0.4 1.0</background>
+      <shadows>true</shadows>
+      <fog>
+        <type>linear</type>
+        <color>0.1 0.2 0.4 1.0</color> 
+        <start>10.0</start>
+        <end>70.0</end>
+        <density>0.1</density> 
+      </fog>
+    </scene>
+    <!-- experimenting sand_world -->
+
   <include>
        <name>my_lrauv</name>
-      <pose degrees="true">0 0 -2 0 0 -180</pose>
+      <pose degrees="true">0 6 0 0 0 0</pose>
       <uri>model://my_lrauv</uri>
 
         <plugin
@@ -695,29 +715,50 @@
           <cp>0 0 0</cp>
         </plugin>
 
-         <plugin
-          filename="gz-sim-hydrodynamics-system"
-          name="gz::sim::systems::Hydrodynamics">
-          <link_name>base_link</link_name>
-          <xDotU>-4.876161</xDotU>
-          <yDotV>-126.324739</yDotV>
-          <zDotW>-126.324739</zDotW>
-          <kDotP>0</kDotP>
-          <mDotQ>-33.46</mDotQ>
-          <nDotR>-33.46</nDotR>
-          <xUabsU>-6.2282</xUabsU>
-          <xU>0</xU>
-          <yVabsV>-601.27</yVabsV>
-          <yV>0</yV>
-          <zWabsW>-601.27</zWabsW>
-          <zW>0</zW>
-          <kPabsP>-0.1916</kPabsP>
-          <kP>0</kP>
-          <mQabsQ>-632.698957</mQabsQ>
-          <mQ>0</mQ>
-          <nRabsR>-632.698957</nRabsR>
-          <nR>0</nR>
-        </plugin> 
+         
+<plugin
+        filename="libSimpleHydrodynamics.so"
+        name="vrx::SimpleHydrodynamics">
+        <link_name>base_link</link_name>
+        <!-- Added mass -->
+        <xDotU>0.0</xDotU>
+        <yDotV>0.0</yDotV>
+        <nDotR>0.0</nDotR>
+        <!-- Linear and quadratic drag -->
+        <xU>100.0</xU>
+        <xUU>150.0</xUU>
+        <yV>100.0</yV>
+        <yVV>100.0</yVV>
+        <zW>500.0</zW>
+        <kP>300.0</kP>
+        <kPP>600.0</kPP>
+        <mQ>900.0</mQ>
+        <mQQ>900.0</mQQ>
+        <nR>800.0</nR>
+        <nRR>800.0</nRR>
+      </plugin>
+
+
+
+
+         <!-- lrauv hull
+      <plugin
+        filename="libSurface.so"
+        name="vrx::Surface">
+        <link_name>base_link</link_name>
+        <hull_length>2</hull_length>
+        <hull_radius>0.18</hull_radius>
+        <fluid_level>0</fluid_level>
+        <points>
+          <point>0.6 -1.03 0</point>
+          <point>-1.4 -1.03 0</point>
+        </points>
+        <wavefield>
+          <topic>/vrx/wavefield/parameters</topic>
+        </wavefield>
+      </plugin> -->
+
+      
 
       </include>
     

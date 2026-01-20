@@ -49,7 +49,7 @@
 
 
     <!-- experimenting sand_world-->
-    <!-- <include>
+    <include>
       <uri>my_seabed</uri>
     </include>
 
@@ -65,7 +65,7 @@
         <end>70.0</end>
         <density>0.1</density> 
       </fog>
-    </scene> -->
+    </scene>
     <!-- experimenting sand_world -->
 
     <light type="directional" name="sun">

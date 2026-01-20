@@ -53,7 +53,7 @@ KD_PITCH = 0.8       # fin_deflection / (rad/s)
 MAX_HORIZ_FIN_RAD = 0.52
 
 # Surge (simple P) -- optional: can use constant thrust instead
-KP_SURGE = 40.0      # (thrust per m/s) - tune carefully
+KP_SURGE = 500.0      # (thrust per m/s) - tune carefully
 DEFAULT_CRUISE_SPEED = -1.0  # m/s (forward)
 
 # Pitch angle limit for safety
