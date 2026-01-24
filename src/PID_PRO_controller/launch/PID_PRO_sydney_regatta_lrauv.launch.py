@@ -11,7 +11,7 @@ def generate_launch_description():
     # Path to your world file
     world_path = os.path.join(
         os.path.expanduser("~"),
-        "ros2_ws", "src", "PID_PRO_controller", "worlds", "sydney_regatta.sdf"
+        "ros2_ws", "src", "PID_PRO_controller", "worlds", "sydney_regatta_lrauv.sdf"
     )
 
     # Path to bridge YAML

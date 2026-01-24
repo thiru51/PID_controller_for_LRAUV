@@ -3,7 +3,7 @@ import math
 import os
 
 # --- 1. Load Robot Trajectory ---
-traj_path = r"/home/thiru/ros2_ws/src/PID_PRO_controller/output/trajectory.csv"
+traj_path = r"/home/thiru_na22b078/ros2_ws/src/PID_PRO_controller/output/trajectory.csv"
 if os.path.exists(traj_path):
     traj = CSVReader(FileName=[traj_path])
     trajTable = TableToPoints(Input=traj)
@@ -27,7 +27,7 @@ else:
     print(f"Error: Trajectory file not found at {traj_path}")
 
 # --- 2. Load Waypoints (if exist) ---
-wps_path = r"/home/thiru/ros2_ws/src/PID_PRO_controller/output/waypoints.csv"
+wps_path = r"/home/thiru_na22b078/ros2_ws/src/PID_PRO_controller/output/waypoints.csv"
 if os.path.exists(wps_path):
     wps = CSVReader(FileName=[wps_path])
     wpsTable = TableToPoints(Input=wps)
@@ -47,5 +47,5 @@ ResetCamera()
 GetActiveCamera().Dolly(0.8)
 
 Render()
-SaveScreenshot(r"/home/thiru/ros2_ws/src/PID_PRO_controller/output/trajectory_3d.png", renderView, ImageResolution=[1920,1080])
-print(r"Saved PNG: /home/thiru/ros2_ws/src/PID_PRO_controller/output/trajectory_3d.png")
+SaveScreenshot(r"/home/thiru_na22b078/ros2_ws/src/PID_PRO_controller/output/trajectory_3d.png", renderView, ImageResolution=[1920,1080])
+print(r"Saved PNG: /home/thiru_na22b078/ros2_ws/src/PID_PRO_controller/output/trajectory_3d.png")
