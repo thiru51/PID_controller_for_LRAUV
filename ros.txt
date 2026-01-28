@@ -29,6 +29,14 @@ ros2 pkg create package_name --build-type ament_python --dependencies rclpy
 
 
 
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+source ~/vrx_ws/install/setup.bash
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/pid_controller/models
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/PID_PRO_controller/models
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$HOME/ros2_ws/src/PID_PRO_controller/worlds
+
+
 
 thiru_na22b078@dcf-Tx100-1011:~/ros2_ws$ gz topic -l
 
