@@ -22,6 +22,10 @@ cd ~/ros2_ws && rm -rf build install log && source /opt/ros/jazzy/setup.bash && 
 source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_sydney_regatta_lrauv.launch.py
 
 
+cd ~/thiru/kvlcc2_ws && rm -rf build install log && source /opt/ros/jazzy/setup.bash && colcon build --symlink-install 
+source ~/thiru/kvlcc2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_sydney_regatta_lrauv.launch.py
+
+
 rm -rf build/PID_PRO_controller install/PID_PRO_controller 
 
 

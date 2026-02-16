@@ -16,10 +16,14 @@ setup(
 
         (os.path.join('share', package_name, 'launch'), ['launch/PID_PRO_controller.launch.py']),
         (os.path.join('share', package_name, 'launch'), ['launch/PID_PRO_sydney_regatta_lrauv.launch.py']),
+        (os.path.join('share', package_name, 'launch'), ['launch/simple_PID_PRO_controller.launch.py']),
+        (os.path.join('share', package_name, 'launch'), ['launch/open_loop_controller.launch.py']),
 
+
+        
         (os.path.join('share', package_name, 'worlds'), ['worlds/buoyant_lrauv.sdf']),
         (os.path.join('share', package_name, 'worlds'), ['worlds/sydney_regatta_lrauv.sdf']),
-
+        (os.path.join('share', package_name, 'worlds'), ['worlds/buoyant_lrauv_simple.sdf']),
         (os.path.join('share', package_name, 'models'), ['models/my_lrauv/model.sdf']),
 
         (os.path.join('share', package_name, 'bridge'), ['bridge/bridge_config.yaml']),
@@ -41,6 +45,7 @@ setup(
             'trajectory_plotter = PID_PRO_controller.trajectory_plotter:main',
             'trajectory_paraview = PID_PRO_controller.trajectory_paraview:main',
             'sonar_image_node = PID_PRO_controller.sonar_image_node:main',
+            'open_loop_controller = PID_PRO_controller.open_loop_controler:main',
         ],
     },
 )
