@@ -253,7 +253,9 @@ You can also run the following command to activate the changes to groups:
 NOTE:
 The above three commands are important when for each time 
 you access a terminal nd try using docker.
-  
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+  newgrp docker
 
 Verify that you can run docker commands without sudo.
  docker run hello-world
@@ -397,6 +399,23 @@ SHARING FILES WITH CONTAINER:
 CHEAT SHEET:
 
 1.Start work:
+
+
+git fetch
+
+Downloads commits/refs/objects from remote (e.g. origin) into your local repo.
+Updates remote-tracking branches like origin/main.
+Does NOT change your working tree or current branch.
+Use when you want to inspect remote changes before integrating.
+
+git pull
+
+Equivalent to git fetch followed by a git merge (by default) or git rebase if configured.
+Updates your working branch immediately (may create a merge commit).
+Use when you want to update and integrate in one step.
+
+
+
 git switch main
 git pull
 
@@ -445,6 +464,63 @@ no need to do "git push -u origin my-idea again."
 
 
 
+
+Viewing Commit History
+To view the commit history, use:
+
+git log
+
+
+Reverting Changes
+To undo the last commit while keeping the changes in your working directory:
+git reset --soft HEAD~1
+
+
+To completely undo the last commit and discard changes:
+git reset --hard HEAD~1
+
+
+To revert a specific commit while keeping history:
+git revert <commit-hash>
+
+
+To undo changes in a specific file before committing:
+git checkout -- <filename>
+
+
+
+Stashing Changes:
+To temporarily save changes without committing:
+git stash save "work in progress"
+
+
+To list stashed changes:
+git stash list
+
+
+To apply the most recent stash:
+git stash pop
+
+
+To apply a specific stash:
+git stash apply stash@{n}
+
+
+To drop a specific stash:
+git stash drop stash@{n}
+
+
+
+
+
+
+
+
+
+
+
+
+A link in SDF = one rigid body.
 
 
 
