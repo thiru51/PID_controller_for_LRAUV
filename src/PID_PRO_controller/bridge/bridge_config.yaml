@@ -33,3 +33,23 @@
   publisher_queue: 5
   lazy: true
   direction: GZ_TO_ROS      # Only receiving data from Gazebo → ROS
+
+- ros_topic_name: "forward_looking_sonar/scan"
+  gz_topic_name: "/world/buoyant_lrauv/model/my_lrauv/link/forward_looking_sonar_link/sensor/forward_looking_sonar/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS
+
+
+- ros_topic_name: "/dynamic_pose"
+  gz_topic_name: "/world/buoyant_lrauv/dynamic_pose/info"
+  ros_type_name: "geometry_msgs/msg/Pose"
+  gz_type_name: "gz.msgs.Pose"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS
+   

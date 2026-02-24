@@ -1,0 +1,950 @@
+cd ~/ros2_ws && colcon build --symlink-install --packages-select pid_controller
+source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 launch pid_controller pid_controller.launch.py
+
+
+
+
+cd ~/ros2_ws && rm -rf colcon build install log && colcon build --symlink-install --packages-select PID_PRO_controller
+source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_controller.launch.py
+
+
+
+cd ~/ros2_ws && rm -rf build/ install/ log/ && colcon build --packages-select vrx_gz vrx_ros vrx_urdf PID_PRO_controller --symlink-install
+source /opt/ros/jazzy/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_controller.launch.py
+
+
+
+
+cd ~/ros2_ws && rm -rf build install log && source /opt/ros/jazzy/setup.bash && colcon build --symlink-install 
+source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_controller.launch.py
+
+cd ~/ros2_ws && rm -rf build install log && source /opt/ros/jazzy/setup.bash && colcon build --symlink-install 
+source ~/ros2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_sydney_regatta_lrauv.launch.py
+
+
+cd ~/thiru/kvlcc2_ws && rm -rf build install log && source /opt/ros/jazzy/setup.bash && colcon build --symlink-install 
+source ~/thiru/kvlcc2_ws/install/setup.bash && ros2 launch PID_PRO_controller PID_PRO_sydney_regatta_lrauv.launch.py
+
+
+rm -rf build/PID_PRO_controller install/PID_PRO_controller 
+
+
+THE RIGHT COMMAND TO CREATE A ROS2 PACKAGE WITH PYTHON IS:
+ros2 pkg create package_name --build-type ament_python --dependencies rclpy
+
+
+
+
+
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+source ~/vrx_ws/install/setup.bash
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/pid_controller/models
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/PID_PRO_controller/models
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$HOME/ros2_ws/src/PID_PRO_controller/worlds
+
+
+
+thiru_na22b078@dcf-Tx100-1011:~/ros2_ws$ gz topic -l
+
+/clock
+/gazebo/resource_paths
+/gui/camera/pose
+/gui/currently_tracked
+/gui/track
+/model/my_lrauv/joint/propeller_joint/ang_vel
+/model/my_lrauv/odometry
+/model/my_lrauv/odometry_with_covariance
+/model/my_lrauv/pose
+/stats
+/world/buoyant_lrauv/clock
+/world/buoyant_lrauv/dynamic_pose/info
+/world/buoyant_lrauv/pose/info
+/world/buoyant_lrauv/scene/deletion
+/world/buoyant_lrauv/scene/info
+/world/buoyant_lrauv/state
+/world/buoyant_lrauv/stats
+/model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos
+/model/my_lrauv/joint/propeller_joint/cmd_thrust
+/model/my_lrauv/joint/propeller_joint/enable_deadband
+/model/my_lrauv/joint/vertical_fins_joint/0/cmd_pos
+/ocean_current
+/world/buoyant_lrauv/light_config
+/world/buoyant_lrauv/material_color
+
+
+
+
+gz topic -t /model/my_lrauv/joint/vertical_fins_joint/0/cmd_pos -m gz.msgs.Double -p 'data: -0.17'
+
+
+gz topic -t /model/my_lrauv/joint/propeller_joint/cmd_thrust -m gz.msgs.Double -p 'data: -15'
+
+
+
+gz topic -t /model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos -m gz.msgs.Double -p 'data: -0.17'
+
+
+
+
+
+
+The whole underwater simulation stack :
+
+┌──────────────────────────────────────────┐
+│  Autonomy (Navigation, SLAM, Avoidance)  │
+├──────────────────────────────────────────┤
+│  Perception (Sonar pings, point clouds)  │
+├──────────────────────────────────────────┤
+│  Sensor simulation (Imaging / MBES)      │
+├──────────────────────────────────────────┤
+│  Underwater physics + seabed + obstacles │
+├──────────────────────────────────────────┤
+│  LRAUV hydrodynamics & control ✅        │
+└──────────────────────────────────────────┘
+
+
+
+
+
+GIT basics:
+
+
+What Git ACTUALLY is (core idea)?
+
+Git = a versioned database of snapshots
+Git does not track “files changing”
+Git tracks snapshots of your project at specific times
+Each snapshot = commit
+
+
+
+
+1. Git workflow stages: 
+		"Working Directory---> Staging area ---> commit"
+
+Working Directory
+The file on disk (what you edit in VS Code)
+
+Staging Area
+Files you intend to save in the next snapshot
+
+Commit (History)
+A frozen snapshot saved permanently
+
+
+
+
+2. git status (MOST IMPORTANT command)
+	git status
+
+This tells you:
+
+Which branch you are on
+What files are changed
+What is staged
+What is untracked
+Always run this when confused.
+
+
+
+3. git add .      means “Stage ALL modified files”
+
+It moves the file:
+Working directory → Staging area
+
+
+4. git commit -m "message"    — THE SNAPSHOT
+
+Takes everything in the staging area
+Saves a snapshot
+Adds it to the history
+
+After commit:
+Working directory → clean
+History → one more commit
+
+
+5.Remote branches vs local branches
+
+| Local (Laptop) | Remote (GitHub)     |
+| -------------- | ------------------- |
+| `main`         | `origin/main`       |
+| `experiment`   | `origin/experiment` |
+
+
+6.git fetch vs git pull
+
+git fetch  --> “Download info from GitHub, but don’t touch my files”  It updates origin/main , but not main. Safe, read only.
+git pull   --> “Download + merge into my current branch”  So git pull changes your code.
+	Internally git pull does:
+	git fetch
+	git merge origin/main
+
+
+
+
+
+DOCKER BASICS:
+
+
+INSTALLATION ND SETTING IN A NEW SYSTEM:
+
+1.Set up Docker's apt repository.
+# Add Docker's official GPG key:
+ sudo apt update
+ sudo apt install ca-certificates curl
+ sudo install -m 0755 -d /etc/apt/keyrings
+ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+ sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+
+
+# Add the repository to Apt sources:
+ sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+ Types: deb
+ URIs: https://download.docker.com/linux/ubuntu
+ Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+ Components: stable
+ Signed-By: /etc/apt/keyrings/docker.asc
+ EOF
+
+
+
+ sudo apt update
+
+
+2.Install the Docker packages.
+To install the latest version, run:
+ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+
+3.The Docker service starts automatically after installation. To verify that Docker is running, use:
+
+
+ sudo systemctl status docker
+Some systems may have this behavior disabled and will require a manual start:
+ sudo systemctl start docker
+ 
+ 
+ 
+4.Verify that the installation is successful by running the hello-world image:
+ sudo docker run hello-world
+
+5.IMPORTANT PART: (you wont find in the documentations)
+
+To create the docker group and add your user:
+
+Create the docker group.
+ sudo groupadd docker
+
+
+Add your user to the docker group.
+ sudo usermod -aG docker $USER
+
+Log out and log back in so that your group membership is re-evaluated.
+If you're running Linux in a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.
+You can also run the following command to activate the changes to groups:
+ newgrp docker
+
+
+
+NOTE:
+The above three commands are important when for each time 
+you access a terminal nd try using docker.
+  
+
+Verify that you can run docker commands without sudo.
+ docker run hello-world
+then run:
+ docker image ls
+you should see:
+thiru@dcf-Tx100-1015:~$ docker image ls
+                                                            i Info →   U  In Use
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+hello-world:latest   05813aedc15f       25.9kB         9.52kB    U   
+
+
+
+
+
+LEARNINGS:
+To start your docker session in a terminal, you should:
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker
+
+1. Starting and closing a docker container is different from running a docker container
+   whereas, Running a docker container is flashing the docker image once again, but starting nd closing is like editing nd saving the already once ran container
+ 
+2. base command nd child command like ros2 run or ros2 lauch
+
+3. docker image pull ros:humble 
+   here , the format is <name> : <tag>
+
+4. "docker image ls" is same as that of "docker iamges"
+   "docker image pull " is same as that of "docker pull"
+
+5. to remove the docker image :
+	"docker image rm hello-world"
+	"docker image rm -f hello-world"  - for force
+
+6."docker run ros:humble" and "docker container run ros:humble" are the same
+but the above commands would not open a terminal to interact...
+
+7. "docker run -it ros:humble"
+the above command opens a terminal to interact with like below:
+
+thiru_na22b078@dcf-Tx100-1011:~$ docker run -it ros:humble
+root@fb9257b386f1:/# ls
+bin   etc   lib32   log    opt   ros_entrypoint.sh  srv  usr
+boot  home  lib64   media  proc  run                sys  var
+dev   lib   libx32  mnt    root  sbin               tmp
+root@fb9257b386f1:/# exit
+exit
+
+8. Lets say that a container is running in a terminal and then you open a new one... then source the terminal with docker commands nd then execute the following commands:
+	"docker container ls" or  "docker ps"     - both are same
+
+thiru_na22b078@dcf-Tx100-1011:~$ docker container ls
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS     NAMES
+9b318e4f6726   ros:humble   "/ros_entrypoint.sh …"   2 minutes ago   Up 2 minutes             eloquent_proskuriakova
+
+  	"docker container stop eloquent_proskuriakova"   stops the container that was opened in the previous terminal
+  	
+NOTE: 
+	"docker ps -a"    - gives you the history of containers
+	
+thiru_na22b078@dcf-Tx100-1011:~$ docker ps -a
+CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                        PORTS     NAMES
+9b318e4f6726   ros:humble                                    "/ros_entrypoint.sh …"   10 minutes ago   Exited (137) 7 minutes ago              eloquent_proskuriakova
+fb9257b386f1   ros:humble                                    "/ros_entrypoint.sh …"   11 minutes ago   Exited (0) 11 minutes ago               charming_edison
+7168d46c3cd1   ros:humble                                    "/ros_entrypoint.sh …"   12 minutes ago   Exited (0) 12 minutes ago               focused_feistel
+a53626ae7743   ros:humble                                    "/ros_entrypoint.sh …"   12 minutes ago   Exited (130) 12 minutes ago             priceless_lichterman
+2caf8a15da50   hello-world                                   "/hello"                 46 minutes ago   Exited (0) 46 minutes ago               quirky_thompson
+46e3f0244c0f   hello-world                                   "/hello"                 46 minutes ago   Exited (0) 46 minutes ago               adoring_noyce
+3c34f3fc322c   gaussian-cuda11-img                           "/opt/nvidia/nvidia_…"   2 months ago     Exited (137) 2 months ago               amazing_mcnulty
+d3be0151e0b7   gaussian-cuda11-img                           "/opt/nvidia/nvidia_…"   2 months ago     Exited (137) 2 months ago               gaussian-cuda11-gui
+1b800f701cd3   nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04   "/opt/nvidia/nvidia_…"   2 months ago     Exited (0) 2 months ago                 gaussian-cuda11
+
+
+
+
+9. 	"docker container start -i eloquent_proskuriakova"  
+
+
+- this would start (not run) my previously ran container easily again.
+NOTE : running is different from starting nd stoping.
+
+
+10.	"docker container rm eloquent_proskuriakova" 
+
+- this would remove the container
+
+
+11.	"docker container prune"
+
+-this would remove all the stopped containers
+
+
+12.	"docker exec -it eloquent_proskuriakova /bin/bash"
+
+- this would create another interactive terminal of the same container in another terminal
+
+	"docker exec -it eloquent_proskuriakova ls"
+	
+- this would show the available files nd folders in the particular container , from another terminal.
+
+
+13.TO BUILD AN IMAGE:
+
+	1. First create the repository that you want. create the dockerfile with necessary details in it and execute the following command. 
+	2. FROM ros:humble
+	   RUN apt-get update && apt-get install -y \ nano && rm -rf /var/lib/apt/lists/*
+	   COPY our_directory/ /site_directory
+	   	-these are the basic instructions in a dockerfile.
+	
+  	3. then you go nd execute this command to build the image:
+	"docker image build -t <image_name> <path_to_the_directory>"
+
+ 	4. when you are in the directory itself:
+	"docker image build -t <image_name> ."
+	
+	5. "docker ps"                    - for checking 
+	   "docker run -it <image_name>"  - for running the image
+	   
+	
+VOLUMES AND BIND MAPS:
+
+SHARING FILES WITH CONTAINER:
+	" docker run -it -v $PWD/new_directory:/site_new_directory my_first_image"
+	
+	
+	the above command adds the new_directory as site_new_directory in the my_first_image nd runs that image...
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+CHEAT SHEET:
+
+1.Start work:
+git switch main
+git pull
+
+2.New IDEA (create a new branch) or (switch to a existing branch):
+| Situation             | Command                 |
+| --------------------- | ----------------------- |
+| Branch does NOT exist | `git switch -c my-idea` |
+| Branch already exists | `git switch my-idea`    |
+
+git switch -c my-idea
+git switch my-idea
+
+
+3.Save progress by pushing the locally created branch into the github 
+git add .
+git commit -m "message"
+git push -u origin my-idea
+
+4.Merge to main: (later if you want to merge the branch to main if you think there wont be conflicts)
+git switch main
+git pull
+git merge my-idea
+git push
+
+
+
+IMP NOTE:
+👉 Creating a branch locally does NOT create it on GitHub
+
+After:
+"git switch -c my-idea"
+
+This branch exists:
+✔ locally
+❌ NOT on GitHub
+
+To create it on GitHub, you must push it:
+"git push -u origin my-idea"
+
+the above command creates the branch on GitHub and links it to your local branch.
+in future , you can just do git push to push changes to that branch on GitHub.
+no need to do "git push -u origin my-idea again."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/usr/bin/env python3
+"""
+ros2 node: lrauv_3d_los_controller.py
+
+- 3D LOS path follower with cascaded depth->pitch PD, yaw PD, and surge P.
+- Publishes:
+    /cmd/vertical_fins   (Float64)  -- yaw control (rudder-like)
+    /cmd/horizontal_fins (Float64)  -- pitch control (elevator-like)
+    /cmd/thrust          (Float64)  -- surge thrust command
+- Subscribes:
+    /odom (nav_msgs/Odometry)
+- Loads waypoints YAML (format described by user).
+- Assumptions:
+    * z increases downward (positive down).
+    * Right-hand coord: +x forward, +y right, +z down.
+"""
+import rclpy
+from rclpy.node import Node
+from nav_msgs.msg import Odometry
+from std_msgs.msg import Float64
+import yaml
+import numpy as np
+import math
+import os
+from rclpy.qos import QoSProfile, QoSDurabilityPolicy
+
+# -------------------------
+# DEFAULT CONFIG / GAINS
+# -------------------------
+DEFAULT_WAYPOINTS_FILE = "/home/thiru_na22b078/ros2_ws/src/PID_PRO_controller/PID_PRO_controller/waypoints.yaml"
+
+# LOS lookahead limits (meters)
+MIN_LOOKAHEAD = 6.2
+MAX_LOOKAHEAD = 20.0
+
+# Waypoint acceptance radius (m)
+ACCEPTANCE_RADIUS = 15.0
+
+# Yaw (heading) PD (vertical fins)
+KP_YAW = 9.0
+KD_YAW = 0.5          # tuned reasonably larger than original very-small kd
+MAX_VERT_FIN_RAD = 0.52  # rad (~30 deg)
+
+# Depth outer PD -> desired pitch (theta_d)
+KP_DEPTH = 0.12      # (rad / m) -- map depth error to pitch angle
+KD_DEPTH = 0.06      # (rad / (m/s)) using w (vel z)
+
+# Pitch inner PD (horizontal fins)
+KP_PITCH = 6.0       # fin_deflection / rad
+KD_PITCH = 0.8       # fin_deflection / (rad/s)
+MAX_HORIZ_FIN_RAD = 0.52
+
+# Surge (simple P) -- optional: can use constant thrust instead
+KP_SURGE = 40.0      # (thrust per m/s) - tune carefully
+DEFAULT_CRUISE_SPEED = -1.0  # m/s (forward)
+
+# Pitch angle limit for safety
+MAX_PITCH_RAD = 0.45  # ~25 degrees
+
+# Fin command rate limit (rad/s) optional
+MAX_FIN_RATE = 1.0  # rad/s (not enforced here, left as simple param)
+
+# -------------------------
+# Helper utilities
+# -------------------------
+def clamp(x, lo, hi):
+    if x != x:  # NaN check
+        return lo
+    return max(lo, min(hi, x))
+
+def euler_from_quaternion(quat):
+    x, y, z, w = quat
+    # roll (x-axis rotation)
+    t0 = +2.0 * (w * x + y * z)
+    t1 = +1.0 - 2.0 * (x * x + y * y)
+    roll = math.atan2(t0, t1)
+    # pitch (y-axis rotation)
+    t2 = +2.0 * (w * y - z * x)
+    t2 = +1.0 if t2 > +1.0 else t2
+    t2 = -1.0 if t2 < -1.0 else t2
+    pitch = math.asin(t2)
+    # yaw (z-axis rotation)
+    t3 = +2.0 * (w * z + x * y)
+    t4 = +1.0 - 2.0 * (y * y + z * z)
+    yaw = math.atan2(t3, t4)
+    return roll, pitch, yaw
+
+def angle_wrap(a):
+    return math.atan2(math.sin(a), math.cos(a))
+
+# -------------------------
+# Controller Node
+# -------------------------
+class LOS3DController(Node):
+    def __init__(self):
+        super().__init__('los_3d_controller')
+
+        qos = QoSProfile(depth=10)
+        # publishers
+        self.vert_fin_pub = self.create_publisher(Float64, '/cmd/vertical_fins', qos)
+        self.horiz_fin_pub = self.create_publisher(Float64, '/cmd/horizontal_fins', qos)
+        self.thrust_pub = self.create_publisher(Float64, '/cmd/thrust', qos)
+
+        # subscriber
+        self.odom_sub = self.create_subscription(Odometry, '/odom', self.odom_cb, 20)
+
+        # parameters (allow overrides from launch file)
+        self.declare_parameter('waypoints_file', DEFAULT_WAYPOINTS_FILE)
+        self.declare_parameter('min_lookahead', MIN_LOOKAHEAD)
+        self.declare_parameter('max_lookahead', MAX_LOOKAHEAD)
+        self.declare_parameter('acceptance_radius', ACCEPTANCE_RADIUS)
+
+        # Gains as parameters for easy tuning later
+        self.declare_parameter('kp_yaw', KP_YAW)
+        self.declare_parameter('kd_yaw', KD_YAW)
+        self.declare_parameter('kp_depth', KP_DEPTH)
+        self.declare_parameter('kd_depth', KD_DEPTH)
+        self.declare_parameter('kp_pitch', KP_PITCH)
+        self.declare_parameter('kd_pitch', KD_PITCH)
+        self.declare_parameter('kp_surge', KP_SURGE)
+
+        # read params
+        self.waypoints_file = self.get_parameter('waypoints_file').value
+        self.min_lookahead = float(self.get_parameter('min_lookahead').value)
+        self.max_lookahead = float(self.get_parameter('max_lookahead').value)
+        self.acceptance_radius = float(self.get_parameter('acceptance_radius').value)
+
+        # Gains
+        self.kp_yaw = float(self.get_parameter('kp_yaw').value)
+        self.kd_yaw = float(self.get_parameter('kd_yaw').value)
+        self.kp_depth = float(self.get_parameter('kp_depth').value)
+        self.kd_depth = float(self.get_parameter('kd_depth').value)
+        self.kp_pitch = float(self.get_parameter('kp_pitch').value)
+        self.kd_pitch = float(self.get_parameter('kd_pitch').value)
+        self.kp_surge = float(self.get_parameter('kp_surge').value)
+
+        # state
+        self.waypoints = None   # Nx3 array [[x,y,z],...]
+        self.current_idx = 0
+        self.mission_complete = False
+
+        # last commanded setpoints (for rate-limiting if needed)
+        self.last_theta_d = 0.0
+
+        # cruise speed (can be used or left as fixed thrust)
+        self.cruise_speed = DEFAULT_CRUISE_SPEED
+
+        # load waypoints
+        self.load_waypoints(self.waypoints_file)
+
+        self.get_logger().info('LOS3DController initialized.')
+
+    # -------------------------
+    # Waypoints
+    # -------------------------
+    def load_waypoints(self, fp):
+        if not fp or not os.path.exists(fp):
+            self.get_logger().error(f"Waypoints file not found: {fp}")
+            self.waypoints = None
+            self.mission_complete = True
+            return
+        try:
+            with open(fp, 'r') as f:
+                data = yaml.safe_load(f)
+            raw_points = data.get('waypoints', None)
+            if raw_points is None:
+                self.get_logger().error("No 'waypoints' key in YAML!")
+                self.waypoints = None
+                self.mission_complete = True
+                return
+            arr = np.array(raw_points, dtype=float)
+            if arr.ndim != 2 or arr.shape[1] < 3:
+                self.get_logger().error("Waypoints must be list of [x,y,z] entries.")
+                self.waypoints = None
+                self.mission_complete = True
+                return
+            self.waypoints = arr[:, :3]
+            if self.waypoints.shape[0] < 2:
+                self.get_logger().error("Need at least 2 waypoints.")
+                self.mission_complete = True
+                return
+            self.get_logger().info(f"Loaded {len(self.waypoints)} waypoints from {fp}.")
+        except Exception as e:
+            self.get_logger().error(f"Failed to load waypoints: {e}")
+            self.waypoints = None
+            self.mission_complete = True
+
+    # -------------------------
+    # LOS 3D helper: project and compute lookahead target
+    # returns (x5,y5,z5), dist_to_goal, projection_l
+    # -------------------------
+    def compute_los_target_3d(self, wp_start, wp_end, curr_pos):
+        # wp_start, wp_end, curr_pos are numpy arrays [x,y,z]
+        x1, y1, z1 = wp_start
+        x2, y2, z2 = wp_end
+        x3, y3, z3 = curr_pos
+
+        # line vector and squared length
+        dx = x2 - x1
+        dy = y2 - y1
+        dz = z2 - z1
+        line_len_squared = dx*dx + dy*dy + dz*dz
+
+        if line_len_squared < 1e-6:
+            # degenerate segment -> target is endpoint
+            proj = np.array([x1, y1, z1])
+            l = 0.0
+        else:
+            # projection parameter l (can be <0 or >1 if beyond segment)
+            l = ((dx)*(x3 - x1) + (dy)*(y3 - y1) + (dz)*(z3 - z1)) / line_len_squared
+            proj = np.array([x1 + l*dx, y1 + l*dy, z1 + l*dz])
+
+        # distance from projection to goal (3D)
+        d2 = float(np.linalg.norm(proj - np.array([x2, y2, z2])))
+
+        # adaptive lookahead based on distance to current goal
+        dist_to_goal = float(np.linalg.norm(curr_pos - np.array([x2, y2, z2])))
+        delta = max(min(self.max_lookahead, dist_to_goal), self.min_lookahead)
+
+        if d2 < 1e-6:
+            target = np.array([x2, y2, z2])
+        else:
+            # same interpolation formula as in your XY code, extended to 3D
+            target = ((d2 - delta) * proj + delta * np.array([x2, y2, z2])) / d2
+
+        return target, dist_to_goal, l
+
+    # -------------------------
+    # Controller computations
+    # -------------------------
+    def compute_heading_command(self, desired_heading, yaw_curr, yaw_rate):
+        raw_err = angle_wrap(desired_heading - yaw_curr)
+        fin_cmd = -self.kp_yaw * raw_err - self.kd_yaw * yaw_rate
+        fin_cmd = clamp(fin_cmd, -MAX_VERT_FIN_RAD, MAX_VERT_FIN_RAD)
+        return fin_cmd, raw_err
+
+    def depth_outer_to_pitch(self, z_d, z_curr, w):
+        # e_z = z_d - z_curr (z positive down)
+        e_z = z_d - z_curr
+        # derivative approx: -w term (since e_z_dot ~= -w when z_d constant)
+        theta_d = self.kp_depth * e_z + self.kd_depth * (-w)
+        # clamp desired pitch
+        theta_d = clamp(theta_d, -MAX_PITCH_RAD, MAX_PITCH_RAD)
+        return theta_d, e_z
+
+    def compute_pitch_command(self, theta_d, theta_curr, pitch_rate):
+        # inner PD (angle tracking)
+        err = theta_d - theta_curr
+        fin_h = -self.kp_pitch * err - self.kd_pitch * pitch_rate
+        fin_h = clamp(fin_h, -MAX_HORIZ_FIN_RAD, MAX_HORIZ_FIN_RAD)
+        return fin_h, err
+
+    def compute_surge_thrust(self, u_d, u_curr):
+        # simple P controller for surge speed. If you want constant thrust, set u_d=None
+        if u_d is None:
+            return 0.0
+        e_u = u_d - u_curr
+        thrust = self.kp_surge * e_u
+        # clamp thrust to reasonable bounds (user may customize)
+        thrust = clamp(thrust, -200.0, 200.0)  # adjust to actuator capability
+        return thrust
+
+    # -------------------------
+    # ODOM CALLBACK: main loop
+    # -------------------------
+    def odom_cb(self, msg: Odometry):
+        # safety
+        if self.mission_complete or self.waypoints is None:
+            self.stop_vehicle()
+            return
+
+        # extract pose / twist
+        pos = msg.pose.pose.position
+        ori = msg.pose.pose.orientation
+        twist = msg.twist.twist
+
+        # current state
+        curr_pos = np.array([pos.x, pos.y, pos.z], dtype=float)
+        roll, pitch, yaw = euler_from_quaternion([ori.x, ori.y, ori.z, ori.w])
+        # angular rates: twist.angular.x = roll rate, .y = pitch rate, .z = yaw rate
+        pitch_rate = float(twist.angular.y)
+        yaw_rate = float(twist.angular.z)
+        # linear velocities: twist.linear.x = forward speed
+        u_curr = float(twist.linear.x)
+        w_curr = float(twist.linear.z)  # vertical speed (positive downward by assumption)
+
+        # Current segment
+        idx = self.current_idx
+        wp_start = self.waypoints[idx]
+        wp_end = self.waypoints[idx + 1]
+
+        # distance to current goal (endpoint)
+        dist_to_goal = float(np.linalg.norm(curr_pos - wp_end))
+
+        # waypoint switching
+        if dist_to_goal < self.acceptance_radius:
+            if idx < len(self.waypoints) - 2:
+                self.current_idx += 1
+                idx = self.current_idx
+                wp_start = self.waypoints[idx]
+                wp_end = self.waypoints[idx + 1]
+                self.get_logger().info(f"Waypoint reached -> switching to segment {idx}: {wp_start} -> {wp_end}")
+            else:
+                # final waypoint reached; keep tracking final point (or change behavior)
+                self.get_logger().info("FINAL waypoint reached. Holding at last segment/point.")
+                # Optionally set mission_complete = True
+                # self.mission_complete = True
+
+        # LOS 3D target
+        target_3d, dist_to_goal, lproj = self.compute_los_target_3d(wp_start, wp_end, curr_pos)
+        x5, y5, z5 = target_3d
+
+        # Desired heading from LOS target in XY plane
+        desired_heading = math.atan2(y5 - curr_pos[1], x5 - curr_pos[0])
+        # compute yaw fin command
+        vert_fin_cmd, heading_err = self.compute_heading_command(desired_heading, yaw, yaw_rate)
+
+        # Depth outer -> desired pitch (cascaded approach)
+        # z positive down -> z_d given by z5
+        z_d = z5
+        theta_d, depth_err = self.depth_outer_to_pitch(z_d, curr_pos[2], w_curr)
+
+        # pitch inner -> horizontal fin command
+        horiz_fin_cmd, pitch_err = self.compute_pitch_command(theta_d, pitch, pitch_rate)
+
+        # Surge (simple): try to keep cruise speed or publish constant thrust
+        # Here we compute thrust from cruise speed setpoint. If you prefer constant thrust,
+        # set u_d = None and then use FORWARD_THRUST constant below.
+        u_d = self.cruise_speed
+        thrust_cmd = self.compute_surge_thrust(u_d, u_curr)
+
+        # If you prefer fixed thrust regardless of speed, uncomment:
+        # thrust_cmd = -50.0
+
+        # Publish commands
+        self.publish_command(self.vert_fin_pub, vert_fin_cmd)
+        self.publish_command(self.horiz_fin_pub, horiz_fin_cmd)
+        self.publish_command(self.thrust_pub, thrust_cmd)
+
+        # Debug / logging (controlled verbosity)
+        self.get_logger().debug(
+            f"Seg:{self.current_idx} | DistGoal:{dist_to_goal:.2f} | "
+            f"ψ_d:{desired_heading:.2f} ψ:{yaw:.2f} err:{heading_err:.2f} fin_v:{vert_fin_cmd:.3f} | "
+            f"z_d:{z_d:.2f} z:{curr_pos[2]:.2f} depth_err:{depth_err:.2f} θ_d:{theta_d:.3f} θ:{pitch:.3f} fin_h:{horiz_fin_cmd:.3f} | "
+            f"u:{u_curr:.2f} T:{thrust_cmd:.1f}"
+        )
+
+    # -------------------------
+    # Publishing helper
+    # -------------------------
+    def publish_command(self, pub, value: float):
+        msg = Float64()
+        msg.data = float(value)
+        pub.publish(msg)
+
+    # -------------------------
+    # Safety stop
+    # -------------------------
+    def stop_vehicle(self):
+        try:
+            msg = Float64()
+            msg.data = 0.0
+            self.thrust_pub.publish(msg)
+            self.vert_fin_pub.publish(msg)
+            self.horiz_fin_pub.publish(msg)
+        except Exception:
+            pass
+
+# -------------------------
+# Main
+# -------------------------
+def main(args=None):
+    rclpy.init(args=args)
+    node = LOS3DController()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<plugin name="vrx::PolyhedraBuoyancyDrag"
+        filename="libPolyhedraBuoyancyDrag.so">
+
+  <!-- Seawater -->
+  <fluid_density>1025</fluid_density>
+
+  <!-- Mean sea level -->
+  <fluid_level>0.0</fluid_level>
+
+  <!-- Small drag (AUV, not USV) -->
+  <linear_drag>1.0</linear_drag>
+  <angular_drag>0.2</angular_drag>
+
+  <!-- Buoyant volume -->
+  <buoyancy name="main_hull">
+    <link_name>base_link</link_name>
+    <pose>0 0 0 0 0 0</pose>
+
+    <geometry>
+      <cylinder>
+        <radius>0.22</radius>
+        <length>3.0</length>
+      </cylinder>
+    </geometry>
+  </buoyancy>
+
+  <!-- Free surface coupling -->
+  <wavefield>
+    <topic>/vrx/wavefield/parameters</topic>
+  </wavefield>
+
+</plugin>
+
+
+
+
+
+
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+source ~/vrx_ws/install/setup.bash
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/pid_controller/models
+export GZ_SIM_RESOURCE_PATH=:$HOME/ros2_ws/src/PID_PRO_controller/models
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$HOME/ros2_ws/src/PID_PRO_controller/worlds
+
+
+
+
+
+
