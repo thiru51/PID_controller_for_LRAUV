@@ -619,7 +619,7 @@
 
 
     <!-- experimenting sand_world-->
-    <include>
+    <!-- <include>
       <uri>my_seabed</uri>
     </include>
 
@@ -635,7 +635,7 @@
         <end>70.0</end>
         <density>0.1</density> 
       </fog>
-    </scene>
+    </scene> -->
     <!-- experimenting sand_world -->
 
   <include>
@@ -710,7 +710,7 @@
           <a0>0</a0>
           <area>0.0244</area>
           <upward>0 0 1</upward>
-          <forward>1 0 0</forward>
+          <forward>-1 0 0</forward>
           <link_name>horizontal_fins</link_name>
           <cp>0 0 0</cp>
         </plugin>

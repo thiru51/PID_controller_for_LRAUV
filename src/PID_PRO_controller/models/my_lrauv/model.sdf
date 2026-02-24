@@ -1,9 +1,9 @@
-<?xml version="1.0"?>
+<!-- <?xml version="1.0"?>
 <sdf version="1.6">
   <model name="my_lrauv">
     <!-- Body -->
     <link name="base_link">
-      <!-- <pose>0 0 -0.5 0 0 0</pose> -->
+      <pose>0 0 -0.5 0 0 0</pose>
       <inertial>
         <mass>147.8671</mass>
         <inertia>
@@ -350,7 +350,8 @@
           <velocity>-1</velocity>
         </limit>
         <dynamics>
-          <damping>1.0</damping>
+          <!-- <damping>1.0</damping> -->
+          <damping>0.5</damping>
         </dynamics>
       </axis>
     </joint>
@@ -455,4 +456,11 @@
     </plugin> -->
 
   </model>
-</sdf>
+</sdf> -->
+
+
+
+
+
+
+
