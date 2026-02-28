@@ -3,6 +3,7 @@
   <model name="my_lrauv">
     <!-- Body -->
     <link name="base_link">
+      <!-- <pose>0 0 -0.5 0 0 0</pose> -->
       <inertial>
         <mass>147.8671</mass>
         <inertia>
@@ -14,22 +15,23 @@
           <izz>41.980233</izz>
         </inertia>
       </inertial>
-      <!-- Uncomment this block to enable neutral buoyancy. -->
+      
       <collision name="main_body_buoyancy">
-      <pose>0 0 0 0 0 0</pose>
+        <!-- <pose>0 0 0.2 0 0 0</pose> -->
         <geometry>
           <box>
             <size>2 0.3 0.2464451666666667</size>
           </box>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <geometry>
           <mesh>
             <uri>meshes/tethys.dae</uri>
             <submesh>
               <name>Body</name>
-                <center>false</center>
+              <center>false</center>
             </submesh>
           </mesh>
         </geometry>
@@ -48,128 +50,7 @@
       </visual>
     </link>
 
-
-    <!-- ===================== -->
-    <!-- Forward Sonar Link -->
-    <!-- ===================== -->
-    <link name="forward_looking_sonar_link">
-      <pose>0.9 0 0 0 0 0</pose>
-      <!-- Very small mass so it doesn't affect dynamics -->
-      <inertial>
-      <mass>0.01</mass>
-      <inertia>
-        <ixx>1e-6</ixx>
-        <iyy>1e-6</iyy>
-        <izz>1e-6</izz>
-      </inertia>
-      </inertial>
-      <!-- No collision: sensor should not affect physics -->
-
-
-
-
-
-
-  <sensor name="forward_looking_sonar" type="gpu_ray">
-  <pose>0 0 0 0 0 0</pose>
-  <always_on>true</always_on>
-  <update_rate>2</update_rate>
-  <update_rate>15</update_rate>
-  <visualize>true</visualize>  <visualize>true</visualize>
-
-  <ray>
-    <scan>
-      <!-- Wide horizontal fan -->
-      <horizontal>
-        <samples>512</samples>
-         <resolution>1</resolution>
-        <min_angle>-1.047</min_angle>   <!-- -60 deg -->
-        <max_angle> 1.047</max_angle>   <!-- +60 deg -->
-      </horizontal>
-
-      <!-- Narrow vertical fan -->
-      <vertical>
-        <samples>20</samples>
-         <resolution>1</resolution>
-        <min_angle>-0.174</min_angle>   <!-- -10 deg -->
-        <max_angle> 0.174</max_angle>   <!-- +10 deg -->
-        <min_angle>-0.4</min_angle>   <!-- -10 deg (- 0.174 to 0.174)-->
-        <max_angle> 0.4</max_angle>   <!-- +10 deg -->
-      </vertical>
-    </scan>
-
-    <range>
-      <min>0.5</min>
-      <max>80.0</max>
-      <resolution>0.01</resolution>
-    </range>
-  </ray>
-
-  <!-- Required for Gazebo Harmonic -->
-  <plugin
-    filename="gz-sim-sensors-system"
-    name="gz::sim::systems::Sensors">
-  </plugin>
-</sensor>
-
-
-
-    </link>
-
-</sensor>
-
-
-
-    </link>
-
-
-  <!-- ===================== -->
-<!-- Downward Altimeter -->
-<!-- ===================== -->
-<link name="altimeter_link">
-  <pose>0 0 0 0 0 0</pose>
-
-  <inertial>
-    <mass>0.01</mass>
-    <inertia>
-      <ixx>1e-6</ixx>
-      <iyy>1e-6</iyy>
-      <izz>1e-6</izz>
-    </inertia>
-  </inertial>
-
-  <sensor name="altimeter" type="gpu_ray">
-    <pose>0 0 0 0 0 0</pose>
-    <update_rate>10</update_rate>
-    <visualize>true</visualize>
-
-    <ray>
-      <scan>
-        <horizontal>
-          <samples>1</samples>
-          <min_angle>0</min_angle>
-          <max_angle>0</max_angle>
-        </horizontal>
-
-        <vertical>
-          <samples>1</samples>
-          <min_angle>-1.5708</min_angle> <!-- straight down -->
-          <max_angle>-1.5708</max_angle>
-        </vertical>
-      </scan>
-
-      <range>
-        <min>0.3</min>
-        <max>50</max>
-        <resolution>0.01</resolution>
-      </range>
-    </ray>
-
-    <plugin filename="gz-sim-sensors-system"
-            name="gz::sim::systems::Sensors"/>
-  </sensor>
-</link>
-
+    
 
 
 
@@ -288,6 +169,56 @@
 
 
 
+
+
+<!-- <link name="horizontal_fins">
+      <pose>1.05 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 1.57 0 0.523</pose>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.0007924568755</ixx>
+          <ixy>-0.0000000002674</ixy>
+          <ixz>0.0003978158176</ixz>
+          <iyy>0.0010546736475</iyy>
+          <iyz>-0.0000000006729</iyz>
+          <izz>0.0002633558262</izz>
+         </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <pose>-1.05 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/tethys.dae</uri>
+            <submesh>
+              <name>Fins_Horizontal</name>
+              <center>false</center>
+            </submesh>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1.0 1.0 1.0</diffuse>
+          <specular>1.0 1.0 1.0</specular>
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/Tethys_Albedo.png</albedo_map>
+              <normal_map>materials/textures/Tethys_Normal.png</normal_map>
+              <metalness_map>materials/textures/Tethys_Metalness.png</metalness_map>
+              <roughness_map>materials/textures/Tethys_Roughness.png</roughness_map>
+            </metal>
+          </pbr>
+        </material>
+        </visual>
+    </link> -->
+
+
     <!-- Vertical fins -->
     <link name="vertical_fins">
       <pose>1.05 0 0 0 0 0</pose>
@@ -302,6 +233,7 @@
           <izz>0.0002633558262</izz>
         </inertia>
       </inertial>
+      
       <collision name="collision">
         <geometry>
           <box>
@@ -309,6 +241,7 @@
           </box>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <pose>-1.05 0 0 0 0 0</pose>
         <geometry>
@@ -334,6 +267,7 @@
         </material>
       </visual>
     </link>
+
     <!-- Propeller -->
     <link name="propeller">
       <pose>1.43162 0 0 0 0 0</pose>
@@ -349,6 +283,7 @@
           <izz>0.000033571862</izz>
         </inertia>
       </inertial>
+      
       <collision name="collision">
         <geometry>
           <box>
@@ -356,6 +291,7 @@
           </box>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <pose>-1.43162 0 0 0 0 0</pose>
         <geometry>
@@ -381,24 +317,9 @@
         </material>
       </visual>
     </link>
+
     <!-- Joints -->
-
-
- <!-- Fixed joint for sonar -->
-    <joint name="forward_looking_sonar_joint" type="fixed">
-      <parent>base_link</parent>
-      <child>forward_looking_sonar_link</child>
-    </joint>
-
-
-    <joint name="altimeter_joint" type="fixed">
-      <parent>base_link</parent>
-      <child>altimeter_link</child>
-    </joint>
-
-
-
-          <joint name="horizontal_fin_port_joint" type="revolute">
+        <joint name="horizontal_fin_port_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>horizontal_fin_port</child>
@@ -436,6 +357,22 @@
     </joint>
 
 
+    <!-- <joint name="horizontal_fins_joint" type="revolute">
+      <pose>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>horizontal_fins</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.261799</lower>
+          <upper>0.261799</upper>
+          <effort>-1</effort>
+          <velocity>-1</velocity>
+        </limit>
+      </axis>
+    </joint> -->
+
+
     <joint name="vertical_fins_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -445,11 +382,15 @@
         <limit>
           <lower>-0.261799</lower>
           <upper>0.261799</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
+          <effort>100</effort>
+          <velocity>1.0</velocity>
         </limit>
+        <dynamics>
+          <damping>1.0</damping>
+        </dynamics>
       </axis>
     </joint>
+
     <joint name="propeller_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -464,7 +405,6 @@
         </limit>
       </axis>
     </joint>
-
 
     <!-- Buoyancy Plugin
     <plugin name="vrx::PolyhedraBuoyancyDrag" filename="libPolyhedraBuoyancyDrag.so">
@@ -517,3 +457,10 @@
 
   </model>
 </sdf>
+
+
+
+
+
+
+
