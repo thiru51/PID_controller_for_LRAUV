@@ -28,16 +28,24 @@
       name="gz::sim::systems::Contact">
     </plugin>
 
-    <plugin
+     <!-- <plugin
       filename="gz-sim-buoyancy-system"
       name="gz::sim::systems::Buoyancy">
       <uniform_fluid_density>1000</uniform_fluid_density>
-    </plugin>
+    </plugin> 
+
+     -->
+
+
+
+
+
 
     <plugin
       filename="gz-sim-particle-emitter-system"
       name="gz::sim::systems::ParticleEmitter">
     </plugin>
+
 
 
     <!-- experimenting sand_world-->
@@ -218,35 +226,31 @@
     <model name="my_lrauv">
       <include merge="true" >
         <!-- align with NED (face North) -->
-        <pose degrees="true">0 0 0 0 0 -180</pose>
+        <!-- <pose degrees="true">0 0 0 0 0 -180</pose> -->
+        <pose degrees="true">0 0 0 0 0 0</pose>
         <uri>my_lrauv</uri>
 
         <plugin
-          filename="gz-sim-odometry-publisher-system"
-          name="gz::sim::systems::OdometryPublisher">
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>odom</odom_frame>
+        <robot_base_frame>base_link</robot_base_frame>
         </plugin>
+
 
         <!-- Joint controllers -->
         <plugin
-        filename="gz-sim-joint-position-controller-system"
-        name="gz::sim::systems::JointPositionController">
-        <joint_name>horizontal_fin_port_joint</joint_name>  <!--  How aggressively the fin tries to reach the commanded angle. -->
-        <p_gain>0.1</p_gain>
-      </plugin>
-
-      <plugin
-        filename="gz-sim-joint-position-controller-system"
-        name="gz::sim::systems::JointPositionController">
-        <joint_name>horizontal_fin_starboard_joint</joint_name>     <!--  How aggressively the fin tries to reach the commanded angle. -->
-        <p_gain>0.1</p_gain>
-      </plugin>
-
+          filename="gz-sim-joint-position-controller-system"
+          name="gz::sim::systems::JointPositionController">
+          <joint_name>horizontal_fins_joint</joint_name>
+          <p_gain>0.1</p_gain>
+        </plugin>
 
         <plugin
           filename="gz-sim-joint-position-controller-system"
           name="gz::sim::systems::JointPositionController">
           <joint_name>vertical_fins_joint</joint_name>
-          <p_gain>0.1</p_gain>   <!--  How aggressively the fin tries to reach the commanded angle. -->
+          <p_gain>0.1</p_gain>
         </plugin>
 
          <plugin
@@ -281,25 +285,6 @@
         </plugin>
 
         <!-- Horizontal fin -->
-        <!-- PORT -->
-        <plugin
-         filename="gz-sim-lift-drag-system"
-          name="gz::sim::systems::LiftDrag">
-          <air_density>1000</air_density>
-          <cla>4.13</cla>
-          <cla_stall>-1.1</cla_stall>
-          <cda>0.2</cda>
-          <cda_stall>0.03</cda_stall>
-          <alpha_stall>0.17</alpha_stall>
-          <a0>0</a0>
-          <area>0.0122</area>
-          <upward>0 0 1</upward>
-          <forward>-1 0 0</forward>
-          <link_name>horizontal_fin_port</link_name>
-          <cp>0 0 0</cp>
-        </plugin>
-
-        <!-- STARBOARD -->
         <plugin
           filename="gz-sim-lift-drag-system"
           name="gz::sim::systems::LiftDrag">
@@ -310,37 +295,40 @@
           <cda_stall>0.03</cda_stall>
           <alpha_stall>0.17</alpha_stall>
           <a0>0</a0>
-          <area>0.0122</area>
+          <area>0.0244</area>
           <upward>0 0 1</upward>
-          <forward>-1 0 0</forward>
-          <link_name>horizontal_fin_starboard</link_name>
+          <forward>1 0 0</forward>
+          <link_name>horizontal_fins</link_name>
           <cp>0 0 0</cp>
         </plugin>
-
-         
 
          <plugin
           filename="gz-sim-hydrodynamics-system"
           name="gz::sim::systems::Hydrodynamics">
           <link_name>base_link</link_name>
-          <xDotU>-4.876161</xDotU>
-          <yDotV>-126.324739</yDotV>
-          <zDotW>-126.324739</zDotW>
-          <kDotP>0</kDotP>
-          <mDotQ>-33.46</mDotQ>
-          <nDotR>-33.46</nDotR>
-          <xUabsU>-6.2282</xUabsU>
-          <xU>0</xU>
-          <yVabsV>-601.27</yVabsV>
-          <yV>0</yV>
-          <zWabsW>-601.27</zWabsW>
-          <zW>0</zW>
-          <kPabsP>-0.1916</kPabsP>
-          <kP>0</kP>
-          <mQabsQ>-632.698957</mQabsQ>
-          <mQ>0</mQ>
-          <nRabsR>-632.698957</nRabsR>
-          <nR>0</nR>
+          <!-- Added mass (fluid inertia) -->
+          <xDotU>-2.8</xDotU>
+          <yDotV>-72.0</yDotV>
+          <zDotW>-72.0</zDotW>
+          <kDotP>0.0</kDotP>
+          <mDotQ>-19.0</mDotQ>
+          <nDotR>-19.0</nDotR>
+
+          <!-- Quadratic drag (dominant underwater resistance) -->
+          <xUabsU>-4.2</xUabsU>
+          <yVabsV>-400.0</yVabsV>
+          <zWabsW>-400.0</zWabsW>
+          <kPabsP>-0.12</kPabsP>
+          <mQabsQ>-420.0</mQabsQ>
+          <nRabsR>-420.0</nRabsR>
+
+          <!-- Linear drag (usually small underwater) -->
+          <xU>0.0</xU>
+          <yV>0.0</yV>
+          <zW>0.0</zW>
+          <kP>0.0</kP>
+          <mQ>0.0</mQ>
+          <nR>0.0</nR>
         </plugin> 
 
       </include>

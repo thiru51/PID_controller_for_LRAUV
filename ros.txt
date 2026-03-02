@@ -33,8 +33,30 @@ THE RIGHT COMMAND TO CREATE A ROS2 PACKAGE WITH PYTHON IS:
 ros2 pkg create package_name --build-type ament_python --dependencies rclpy
 
 
+okay.... i am gonna go with the below features for my controller:
+1. The current progress :
+✔ XY LOS guidance
+✔ Cascaded depth → pitch → fin control
+✔ Altimeter-based altitude hold
+✔ FLS anticipation (min of current + future safe depth)
+✔ Emergency override
+2. The extra features:
+• Replace slope estimate with full beam clustering
+Adaptive Lookahead Based on Slope
+
+i would like you to write the final working code for me... like you already have the topics details nd all..... nd all the info about my 3d los controller which you can use for xy control..... ill add the desired altitude in the waypoints.yaml file whiich is of the form:
+
+waypoints_type: XYZ
 
 
+waypoints:
+  - [50, 50, 20]
+  - [400, 50, 20]
+  - [400, 270, 20]
+  - [50, 270, 20]
+  - [50, 55, 20]
+
+ 
 
 source /opt/ros/jazzy/setup.bash
 source ~/ros2_ws/install/setup.bash

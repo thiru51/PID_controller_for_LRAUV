@@ -39,27 +39,6 @@
       name="gz::sim::systems::ParticleEmitter">
     </plugin>
 
-
-    <!-- experimenting sand_world-->
-    <include>
-      <uri>my_seabed</uri>
-    </include>
-
-    <scene>
-      <grid>false</grid>
-      <ambient>0.2 0.35 0.5 1.0</ambient>
-      <background>0.1 0.2 0.4 1.0</background>
-      <shadows>true</shadows>
-      <fog>
-        <type>linear</type>
-        <color>0.1 0.2 0.4 1.0</color> 
-        <start>10.0</start>
-        <end>70.0</end>
-        <density>0.1</density> 
-      </fog>
-    </scene>
-    <!-- experimenting sand_world -->
-
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
@@ -228,25 +207,17 @@
 
         <!-- Joint controllers -->
         <plugin
-        filename="gz-sim-joint-position-controller-system"
-        name="gz::sim::systems::JointPositionController">
-        <joint_name>horizontal_fin_port_joint</joint_name>  <!--  How aggressively the fin tries to reach the commanded angle. -->
-        <p_gain>0.1</p_gain>
-      </plugin>
-
-      <plugin
-        filename="gz-sim-joint-position-controller-system"
-        name="gz::sim::systems::JointPositionController">
-        <joint_name>horizontal_fin_starboard_joint</joint_name>     <!--  How aggressively the fin tries to reach the commanded angle. -->
-        <p_gain>0.1</p_gain>
-      </plugin>
-
+          filename="gz-sim-joint-position-controller-system"
+          name="gz::sim::systems::JointPositionController">
+          <joint_name>horizontal_fins_joint</joint_name>
+          <p_gain>0.1</p_gain>
+        </plugin>
 
         <plugin
           filename="gz-sim-joint-position-controller-system"
           name="gz::sim::systems::JointPositionController">
           <joint_name>vertical_fins_joint</joint_name>
-          <p_gain>0.1</p_gain>   <!--  How aggressively the fin tries to reach the commanded angle. -->
+          <p_gain>0.1</p_gain>
         </plugin>
 
          <plugin
@@ -281,25 +252,6 @@
         </plugin>
 
         <!-- Horizontal fin -->
-        <!-- PORT -->
-        <plugin
-         filename="gz-sim-lift-drag-system"
-          name="gz::sim::systems::LiftDrag">
-          <air_density>1000</air_density>
-          <cla>4.13</cla>
-          <cla_stall>-1.1</cla_stall>
-          <cda>0.2</cda>
-          <cda_stall>0.03</cda_stall>
-          <alpha_stall>0.17</alpha_stall>
-          <a0>0</a0>
-          <area>0.0122</area>
-          <upward>0 0 1</upward>
-          <forward>-1 0 0</forward>
-          <link_name>horizontal_fin_port</link_name>
-          <cp>0 0 0</cp>
-        </plugin>
-
-        <!-- STARBOARD -->
         <plugin
           filename="gz-sim-lift-drag-system"
           name="gz::sim::systems::LiftDrag">
@@ -310,14 +262,20 @@
           <cda_stall>0.03</cda_stall>
           <alpha_stall>0.17</alpha_stall>
           <a0>0</a0>
-          <area>0.0122</area>
+          <area>0.0244</area>
+          <!-- <upward>0 0 1</upward> -->
+          <!-- <forward>1 0 0</forward> -->
+
+          <!-- <forward>-1 0 0</forward>
+          <forward>1 0 0</forward> -->
+
           <upward>0 0 1</upward>
           <forward>-1 0 0</forward>
-          <link_name>horizontal_fin_starboard</link_name>
+          
+
+          <link_name>horizontal_fins</link_name>
           <cp>0 0 0</cp>
         </plugin>
-
-         
 
          <plugin
           filename="gz-sim-hydrodynamics-system"
