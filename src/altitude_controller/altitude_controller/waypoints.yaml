@@ -1,0 +1,8 @@
+desired_altitude: 5.0
+emergency_altitude: 2.0
+
+waypoints:
+  - [50, 50]
+  - [400, 50]
+  - [400, 270]
+  - [50, 270]

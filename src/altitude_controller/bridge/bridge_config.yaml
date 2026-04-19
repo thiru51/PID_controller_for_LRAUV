@@ -1,0 +1,64 @@
+- ros_topic_name: "/cmd/thrust"
+  gz_topic_name: "/model/my_lrauv/joint/propeller_joint/cmd_thrust"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: ROS_TO_GZ      # Only sending commands from ROS → Gazebo
+
+- ros_topic_name: "/cmd/vertical_fins"
+  gz_topic_name: "/model/my_lrauv/joint/vertical_fins_joint/0/cmd_pos"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/cmd/horizontal_fins"
+  gz_topic_name: "/model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/odom"
+  gz_topic_name: "/model/my_lrauv/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS      # Only receiving data from Gazebo → ROS
+
+- ros_topic_name: "forward_looking_sonar/scan"
+  gz_topic_name: "/world/buoyant_lrauv/model/my_lrauv/link/forward_looking_sonar_link/sensor/forward_looking_sonar/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS
+
+
+- ros_topic_name: "/dynamic_pose"
+  gz_topic_name: "/world/buoyant_lrauv/dynamic_pose/info"
+  ros_type_name: "geometry_msgs/msg/Pose"
+  gz_type_name: "gz.msgs.Pose"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS
+   
+
+- ros_topic_name: "/altimeter/scan"
+  gz_topic_name: "/world/buoyant_lrauv/model/my_lrauv/link/altimeter_link/sensor/altimeter/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS
