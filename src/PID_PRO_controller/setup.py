@@ -45,7 +45,9 @@ setup(
             'trajectory_plotter = PID_PRO_controller.trajectory_plotter:main',
             'trajectory_paraview = PID_PRO_controller.trajectory_paraview:main',
             'sonar_image_node = PID_PRO_controller.sonar_image_node:main',
-            'open_loop_controller = PID_PRO_controller.open_loop_controler:main',
+            'open_loop_controler = PID_PRO_controller.open_loop_controler:main',
+            'lrauv_xy_altitude_mission= PID_PRO_controller.lrauv_xy_altitude_mission:main',
+
         ],
     },
 )

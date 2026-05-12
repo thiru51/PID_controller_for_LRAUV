@@ -46,8 +46,8 @@ def generate_launch_description():
 
         Node(
             package='PID_PRO_controller',
-            executable='lrauv_3d_los_controller',
-            name='lrauv_3d_los_controller',
+            executable='lrauv_xy_altitude_mission',
+            name='lrauv_xy_altitude_mission',
             output='screen',
             parameters=[{'waypoints_file': waypoints_path}]
         ),

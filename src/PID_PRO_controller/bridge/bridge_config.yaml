@@ -52,4 +52,13 @@
   publisher_queue: 5
   lazy: true
   direction: GZ_TO_ROS
-   
+
+
+- ros_topic_name: "/altimeter/scan"
+  gz_topic_name: "/world/buoyant_lrauv/model/my_lrauv/link/altimeter_link/sensor/altimeter/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: GZ_TO_ROS
