@@ -3,7 +3,7 @@
   <model name="my_lrauv">
     <!-- Body -->
     <link name="base_link">
-      <pose>0 0 -0.5 0 0 0</pose>
+      <!-- <pose>0 0 -0.5 0 0 0</pose> -->
       <inertial>
         <mass>147.8671</mass>
         <inertia>
@@ -17,13 +17,14 @@
       </inertial>
       <!-- Uncomment this block to enable neutral buoyancy. -->
       <collision name="main_body_buoyancy">
-      <pose>0 0 0 0 0 0</pose>
+      <!-- <pose>0 0 0 0 0 0</pose> -->
         <geometry>
           <box>
             <size>2 0.3 0.2464451666666667</size>
           </box>
         </geometry>
       </collision>
+      
       <visual name="visual">
         <geometry>
           <mesh>
@@ -57,7 +58,7 @@
       <pose>0.9 0 0 0 0 0</pose>
       <!-- Very small mass so it doesn't affect dynamics -->
       <inertial>
-      <mass>0.01</mass>
+      <mass>0</mass>
       <inertia>
         <ixx>1e-6</ixx>
         <iyy>1e-6</iyy>
@@ -121,7 +122,7 @@
   <pose>0 0 0 0 0 0</pose>
 
   <inertial>
-    <mass>0.01</mass>
+    <mass>0</mass>
     <inertia>
       <ixx>1e-6</ixx>
       <iyy>1e-6</iyy>
