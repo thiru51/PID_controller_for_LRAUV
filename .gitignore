@@ -6,3 +6,4 @@ __pycache__/
 *.pyc
 *.swp
 src/pid_controller/results_and_plots/chumma_file
+src/PID_PRO_controller/output/
