@@ -23,6 +23,13 @@
       filename="gz-sim-scene-broadcaster-system"
       name="gz::sim::systems::SceneBroadcaster">
     </plugin>
+
+    <!-- sensor plugin -->
+    <plugin
+  filename="gz-sim-sensors-system"
+  name="gz::sim::systems::Sensors">
+</plugin>
+
     <plugin
       filename="gz-sim-contact-system"
       name="gz::sim::systems::Contact">
@@ -324,6 +331,67 @@
 
       </include>
     </model>
+
+
+
+
+
+    <model name="test_box">
+
+  <static>true</static>
+
+  <pose>-5 0 0 0 0 0</pose>
+
+  <link name="link">
+
+    <collision name="collision">
+      <geometry>
+        <box>
+          <size>1 1 1</size>
+        </box>
+      </geometry>
+    </collision>
+
+    <visual name="visual">
+      <geometry>
+        <box>
+          <size>1 1 1</size>
+        </box>
+      </geometry>
+    </visual>
+
+  </link>
+
+</model>
+
+
+<model name="seabed">
+
+  <static>true</static>
+
+  <pose>0 0 -10 0 0 0</pose>
+
+  <link name="link">
+
+    <collision name="collision">
+      <geometry>
+        <box>
+          <size>100 100 1</size>
+        </box>
+      </geometry>
+    </collision>
+
+    <visual name="visual">
+      <geometry>
+        <box>
+          <size>100 100 1</size>
+        </box>
+      </geometry>
+    </visual>
+
+  </link>
+
+</model>
 
   </world>
 </sdf>
