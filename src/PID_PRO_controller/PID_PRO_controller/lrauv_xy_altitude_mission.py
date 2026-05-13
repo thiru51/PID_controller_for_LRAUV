@@ -121,7 +121,7 @@ class XYAltitudeMission(Node):
         #     '/cmd/horizontal_fin_starboard',
         #     10
         # )
-        # self.thrust_pub = self.create_publisher(Float64, '/cmd/thrust', 10)
+        self.thrust_pub = self.create_publisher(Float64, '/cmd/thrust', 10)
 
         # Debug publishers
         self.debug_alt_error = self.create_publisher(Float64, '/debug/altitude_error', 10)

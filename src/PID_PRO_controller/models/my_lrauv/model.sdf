@@ -176,48 +176,39 @@
 
 
 
-
-    <!-- ========================= -->
-<!-- PORT HORIZONTAL FIN      -->
-<!-- ========================= -->
-<link name="horizontal_fin_port">
-  <!-- Positioned aft and to port (+Y) -->
-  <pose>1.05 0.15 0 0 0 0</pose>
-
-  <inertial>
-          <pose>0 0 0 1.57 0 0</pose>
-
-    <mass>0.1</mass>
-    <inertia>
-      <ixx>0.0007924568755</ixx>
+    <link name="horizontal_fins">
+      <pose>1.05 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 1.57 0 0.523</pose>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.0007924568755</ixx>
           <ixy>-0.0000000002674</ixy>
           <ixz>0.0003978158176</ixz>
           <iyy>0.0010546736475</iyy>
           <iyz>-0.0000000006729</iyz>
           <izz>0.0002633558262</izz>
-    </inertia>
-  </inertial>
-
-  <collision name="collision">
-    <geometry>
-      <box>
-        <size>0.1 0.05 0.02</size>
-      </box>
-    </geometry>
-  </collision>
-
-  <visual name="visual">
-    <pose>-1.05 -0.15 0 0 0 0</pose>
-    <geometry>
-      <mesh>
-        <uri>meshes/tethys.dae</uri>
-        <submesh>
-          <name>Fins_Horizontal</name>
-          <center>false</center>
-        </submesh>
-      </mesh>
-    </geometry>
-    <material>
+         </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <pose>-1.05 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/tethys.dae</uri>
+            <submesh>
+              <name>Fins_Horizontal</name>
+              <center>false</center>
+            </submesh>
+          </mesh>
+        </geometry>
+        <material>
           <diffuse>1.0 1.0 1.0</diffuse>
           <specular>1.0 1.0 1.0</specular>
           <pbr>
@@ -229,64 +220,8 @@
             </metal>
           </pbr>
         </material>
-  </visual>
-</link>
-
-<!-- ========================= -->
-<!-- STARBOARD HORIZONTAL FIN -->
-<!-- ========================= -->
-<link name="horizontal_fin_starboard">
-  <!-- Positioned aft and to starboard (-Y) -->
-  <pose>1.05 -0.15 0 0 0 0</pose>
-
-  <inertial>
-          <pose>0 0 0 1.57 0 0</pose>
-
-    <mass>0.1</mass>
-    <inertia>
-       <ixx>0.0007924568755</ixx>
-          <ixy>-0.0000000002674</ixy>
-          <ixz>0.0003978158176</ixz>
-          <iyy>0.0010546736475</iyy>
-          <iyz>-0.0000000006729</iyz>
-          <izz>0.0002633558262</izz>
-    </inertia>
-  </inertial>
-
-  <collision name="collision">
-    <geometry>
-      <box>
-        <size>0.1 0.05 0.02</size>
-      </box>
-    </geometry>
-  </collision>
-
-  <visual name="visual">
-    <pose>-1.05 0.15 0 0 0 0</pose>
-    <geometry>
-      <mesh>
-        <uri>meshes/tethys.dae</uri>
-        <submesh>
-          <name>Fins_Horizontal</name>
-          <center>false</center>
-        </submesh>
-      </mesh>
-    </geometry>
-    <material>
-          <diffuse>1.0 1.0 1.0</diffuse>
-          <specular>1.0 1.0 1.0</specular>
-          <pbr>
-            <metal>
-              <albedo_map>materials/textures/Tethys_Albedo.png</albedo_map>
-              <normal_map>materials/textures/Tethys_Normal.png</normal_map>
-              <metalness_map>materials/textures/Tethys_Metalness.png</metalness_map>
-              <roughness_map>materials/textures/Tethys_Roughness.png</roughness_map>
-            </metal>
-          </pbr>
-        </material>
-  </visual>
-</link>
-
+        </visual>
+    </link>
 
 
     <!-- Vertical fins -->
@@ -397,30 +332,10 @@
       <child>altimeter_link</child>
     </joint>
 
-
-
-          <joint name="horizontal_fin_port_joint" type="revolute">
+      <joint name="horizontal_fins_joint" type="revolute">
       <pose>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
-      <child>horizontal_fin_port</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-0.261799</lower>
-          <upper>0.261799</upper>
-          <effort>-1</effort>
-          <velocity>-1.0</velocity>
-        </limit>
-        <dynamics>
-          <damping>1.0</damping>
-        </dynamics>
-      </axis>
-    </joint>
-
-    <joint name="horizontal_fin_starboard_joint" type="revolute">
-      <pose>0 0 0 0 0 0</pose>
-      <parent>base_link</parent>
-      <child>horizontal_fin_starboard</child>
+      <child>horizontal_fins</child>
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
@@ -429,10 +344,6 @@
           <effort>-1</effort>
           <velocity>-1</velocity>
         </limit>
-        <dynamics>
-          <!-- <damping>1.0</damping> -->
-          <damping>1</damping>
-        </dynamics>
       </axis>
     </joint>
 
