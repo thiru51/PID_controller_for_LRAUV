@@ -110,7 +110,18 @@ class XYAltitudeMission(Node):
         # Publishers
         self.vert_pub = self.create_publisher(Float64, '/cmd/vertical_fins', 10)
         self.horiz_pub = self.create_publisher(Float64, '/cmd/horizontal_fins', 10)
-        self.thrust_pub = self.create_publisher(Float64, '/cmd/thrust', 10)
+
+        # self.horiz_port_pub = self.create_publisher(
+        #     Float64,
+        #     '/cmd/horizontal_fin_port',
+        #     10
+        # )
+        # self.horiz_star_pub = self.create_publisher(
+        #     Float64,
+        #     '/cmd/horizontal_fin_starboard',
+        #     10
+        # )
+        # self.thrust_pub = self.create_publisher(Float64, '/cmd/thrust', 10)
 
         # Debug publishers
         self.debug_alt_error = self.create_publisher(Float64, '/debug/altitude_error', 10)
@@ -368,6 +379,9 @@ class XYAltitudeMission(Node):
         # Publish
         self.publish(self.vert_pub, vert_fin)
         self.publish(self.horiz_pub, horiz_fin)
+
+        # self.publish(self.horiz_port_pub, horiz_fin)
+        # self.publish(self.horiz_star_pub, horiz_fin)
         self.publish(self.thrust_pub, thrust)
 
         # Debug publishing

@@ -46,6 +46,27 @@
       name="gz::sim::systems::ParticleEmitter">
     </plugin>
 
+
+    <!-- experimenting sand_world-->
+    <include>
+      <uri>my_seabed</uri>
+    </include>
+
+    <scene>
+      <grid>false</grid>
+      <ambient>0.2 0.35 0.5 1.0</ambient>
+      <background>0.1 0.2 0.4 1.0</background>
+      <shadows>true</shadows>
+      <fog>
+        <type>linear</type>
+        <color>0.1 0.2 0.4 1.0</color> 
+        <start>10.0</start>
+        <end>70.0</end>
+        <density>0.1</density> 
+      </fog>
+    </scene>
+    <!-- experimenting sand_world -->
+
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>

@@ -431,7 +431,7 @@
         </limit>
         <dynamics>
           <!-- <damping>1.0</damping> -->
-          <damping>0.5</damping>
+          <damping>1</damping>
         </dynamics>
       </axis>
     </joint>

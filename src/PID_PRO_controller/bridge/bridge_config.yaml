@@ -16,8 +16,17 @@
   lazy: true
   direction: ROS_TO_GZ
 
-# - ros_topic_name: "/cmd/horizontal_fins"
-#   gz_topic_name: "/model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos"
+- ros_topic_name: "/cmd/horizontal_fins"
+  gz_topic_name: "/model/my_lrauv/joint/horizontal_fins_joint/0/cmd_pos"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  subscriber_queue: 5
+  publisher_queue: 5
+  lazy: true
+  direction: ROS_TO_GZ
+
+# - ros_topic_name: "/cmd/horizontal_fin_port"
+#   gz_topic_name: "/model/my_lrauv/joint/horizontal_fin_port_joint/0/cmd_pos"
 #   ros_type_name: "std_msgs/msg/Float64"
 #   gz_type_name: "gz.msgs.Double"
 #   subscriber_queue: 5
@@ -25,23 +34,14 @@
 #   lazy: true
 #   direction: ROS_TO_GZ
 
-- ros_topic_name: "/cmd/horizontal_fin_port"
-  gz_topic_name: "/model/my_lrauv/joint/horizontal_fin_port_joint/0/cmd_pos"
-  ros_type_name: "std_msgs/msg/Float64"
-  gz_type_name: "gz.msgs.Double"
-  subscriber_queue: 5
-  publisher_queue: 5
-  lazy: true
-  direction: ROS_TO_GZ
-
-- ros_topic_name: "/cmd/horizontal_fin_starboard"
-  gz_topic_name: "/model/my_lrauv/joint/horizontal_fin_starboard_joint/0/cmd_pos"
-  ros_type_name: "std_msgs/msg/Float64"
-  gz_type_name: "gz.msgs.Double"
-  subscriber_queue: 5
-  publisher_queue: 5
-  lazy: true
-  direction: ROS_TO_GZ
+# - ros_topic_name: "/cmd/horizontal_fin_starboard"
+#   gz_topic_name: "/model/my_lrauv/joint/horizontal_fin_starboard_joint/0/cmd_pos"
+#   ros_type_name: "std_msgs/msg/Float64"
+#   gz_type_name: "gz.msgs.Double"
+#   subscriber_queue: 5
+#   publisher_queue: 5
+#   lazy: true
+#   direction: ROS_TO_GZ
 
 - ros_topic_name: "/odom"
   gz_topic_name: "/model/my_lrauv/odometry"
