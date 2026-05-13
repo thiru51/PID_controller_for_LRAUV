@@ -21,12 +21,25 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import Float64
 
+
 import numpy as np
 import yaml
 import math
 import os
 import threading
 import time
+
+from ament_index_python.packages import get_package_share_directory
+
+
+
+pkg_path = get_package_share_directory('PID_PRO_controller')
+
+file_path = os.path.join(
+    pkg_path,
+    'config',
+    'waypoints.yaml'
+)
 
 
 # -------------------------
@@ -131,7 +144,7 @@ class XYAltitudeMission(Node):
 
     def load_waypoints(self):
 
-        file_path = "/home/thiru_na22b078/ros2_ws/src/PID_PRO_controller/PID_PRO_controller/waypoints.yaml"
+        # file_path = "/home/thiru/ros2_ws/src/PID_PRO_controller/PID_PRO_controller/waypoints.yaml"
 
         if not os.path.exists(file_path):
             self.get_logger().error("Waypoints file not found.")
@@ -178,10 +191,8 @@ class XYAltitudeMission(Node):
                 break
             time.sleep(1)
 
-        cmd = input("Type 'start' to begin altitude mission: ")
-        if cmd.strip().lower() == "start":
-            print("Mission started.\n")
-            self.mission_started = True
+        print("Mission started.\n")
+        self.mission_started = True
 
     # -------------------------
     # Proper XY LOS (projection-based)
