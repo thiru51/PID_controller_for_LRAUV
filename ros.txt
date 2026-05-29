@@ -525,6 +525,32 @@ A link in SDF = one rigid body.
 
 
 
+What I would do before STONEFISH installation:
+
+
+sudo apt update
+
+sudo apt install \
+build-essential \
+cmake \
+git \
+mesa-utils \
+vulkan-tools \
+libglm-dev \
+libeigen3-dev \
+libtinyxml2-dev \
+libfreetype6-dev \
+libjpeg-dev \
+libpng-dev \
+libgl1-mesa-dev \
+libglu1-mesa-dev \
+freeglut3-dev \
+libassimp-dev \
+qtbase5-dev
+
+
+
+
 
 
 
